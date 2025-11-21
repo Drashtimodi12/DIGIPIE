@@ -1,0 +1,24 @@
+What Are Dunder Methods?
+    Dunder = Double UNDERSCORE
+    These are special methods in Python that start and end with __.
+
+Examples:- __init__, __str__, __len__, __add__
+
+They are also called:- Magic methods, Special methods
+
+Why Are Dunder Methods Used?
+    They allow you to customize the behavior of your objects, such as:
+        How your object prints
+        How your object compares
+        How your object adds / subtracts
+        How your object behaves in lists, loops, etc.
+        They make custom classes behave like built-in types.
+
+
+Why Are Dunder Methods Important?
+    Because they make your objects behave naturally:
+    ✔ You can print objects
+    ✔ You can compare objects
+    ✔ You can add or subtract objects
+    ✔ You can use objects in loops
+    ✔ You can use objects with built-in functions (len, str, repr)

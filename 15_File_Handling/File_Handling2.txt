@@ -1,0 +1,2 @@
+x → Create new file (raises error if file already exists),
+ Use this mode when you want to ensure the file is created ONLY once
