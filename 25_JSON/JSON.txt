@@ -1,0 +1,37 @@
+JSON = JavaScript Object Notation
+    It is a lightweight, text-based format used to store and transfer data.
+    A simple way to send data between frontend and backend
+    A structured text format similar to Python dictionaries
+
+JSON is used everywhere:
+    APIs, Web applications, Mobile apps, Databases, Configuration files
+
+
+Basic JSON Rules
+    Data is written in key–value pairs   {"name": "Drashti", "age": 22}
+    Keys must be inside double quotes ""
+    Values can be:  String, Number, Boolean, Object, Array, Null
+
+
+JSON	
+    Keys must be in "double quotes"	
+    true, false, null	
+    Only strings, numbers, booleans, arrays, objects	
+
+Python Dict:
+    Can use quotes or no quotes
+    True, False, None
+    Can store anything (functions, objects, etc.)
+
+
+"""import json"""
+
+Useful json module functions
+        Function	        Use
+    json.dumps()	Convert Python to JSON string
+    json.loads()	Convert JSON string to Python
+    json.dump()	    Write JSON directly to a file
+    json.load()	    Read JSON directly from a file
+
+
+

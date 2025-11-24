@@ -1,0 +1,7 @@
+To open jupyter in google:	cmd -> jupyter notebook
+
+To create new folder: 	google -> jupyter open -> new -> python3 
+
+Cell Sequence wise:	Shift+Enter
+
+If cell Run not sequence:	Run -> Restart & Run all
