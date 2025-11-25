@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>About Page</h1>
+    <br><br>
+
+    <h1>Hello {{Name}}</h1> <!-- Display name passed from view -->
+    <p>You live in {{city}}</p>
+
+    <!-- If-else condition -->
+    {% if age >= 24 %}
+        <p>Adult</p>
+    {% else %}
+        <p>Minor</p>
+    {% endif %}
+</body>
+</html>
