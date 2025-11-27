@@ -1,60 +1,65 @@
-# Dictionary task — Count frequency of characters in a string
-
-def greet(fun):
-    # Decorator function
-    def start():
-        print("-----START-----")
-
-        # Take input from user and convert it to lowercase
-        # lowercase makes counting easy (A and a become same)
-        a = input("Enter string to check frequency: ").lower()
-
-        fre = {}  # empty dictionary to store frequency counts
-
-        # Loop through each character in the string
-        for i in a:
-            # If character already exists in dictionary, increase count
-            if i in fre:
-                fre[i] += 1
-            else:
-                # If character appears for the first time, set count = 1
-                fre[i] = 1
-
-        # Call the original function with the frequency dictionary
-        fun(fre)
-
-        print("-----END-----\n")
-    return start
+# Task 13: Create a class ShoppingCart with:
+# instance attribute: items (list)
+# methods:
+# add_item(item)
+# remove_item(item)
+# view_cart()
+# empty_cart()
+# Create an object → add items → remove one → display final cart.
 
 
-@greet
-def st(fre):
-    # This function prints the frequency dictionary
-    print(fre)
+class ShoppingCart:
 
+    def __init__(self):
+        self.items = []         # items will store list of products
+    
+    def add_item(self):
+        a = input("\nAdd Shooping item in Cart: ").upper()
+        self.items.append(a)
+        print(f"'{a}' add in cart.")
 
-# Call the decorated function
-st()
+    def remove_item(self):
+        b = input("\nEnter Product to remove from Cart: ").upper()
+        if b in self.items:
+            self.items.remove(b)
+            print(f"'{b}' remove form Cart.")
+        else:
+            print(f"'{b}' Not found in Cart.")
 
+    def view_cart(self):
+        if len(self.items) == 0:
+            print("\nYour Cart is Empty.")
+        else:
+            print("Items in Cart is: ")
+            for i in self.items:
+                print(i, end = ', ')
+        
+    def empty_cart(self):
+        self.items.clear()
+        print("\n\nCart has been Empty...")
 
+sc = ShoppingCart()
+sc.add_item()
+sc.add_item()
+sc.add_item()
 
+sc.remove_item()
+sc.view_cart()
+sc.empty_cart()
 
-# def greet(fun):
-#     def start():
-#         print("-----START-----")
-#         a = [1, 4, 2, 5, 7, 4]
-#         fre = {}
-#         for i in a:
-#             if i in fre:
-#                 fre[i] += 1
-#             else:
-#                 fre[i] = 1
-#         fun(fre)
-#         print("-----END-----\n")
-#     return start
+# OP:
+# Add Shooping item in Cart: milk
+# 'MILK' add in cart.
 
-# @greet 
-# def num(fre):
-#     print(fre)
+# Add Shooping item in Cart: apple
+# 'APPLE' add in cart.
 
-# num()
+# Add Shooping item in Cart: banana
+# 'BANANA' add in cart.
+
+# Enter Product to remove from Cart: milk
+# 'MILK' remove form Cart.
+# Items in Cart is:
+# APPLE, BANANA,
+
+# Cart has been Empty...

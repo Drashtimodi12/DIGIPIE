@@ -50,3 +50,22 @@ l.add_book()
 l.display_books()
 l.remove_book()
 l.search_book()
+
+# OP:
+# Enter Book name to add in School Bag: scince
+# 'Scince' has been added to the School Bag.
+# Enter Book name to add in School Bag: english
+# 'English' has been added to the School Bag.
+# Enter Book name to add in School Bag: maths
+# 'Maths' has been added to the School Bag.
+
+# Books in School Bag:
+# - Scince
+# - English
+# - Maths
+
+# Enter Book name to remove from School Bag: english
+# 'English' has been removed from the School Bag.
+
+# Enter Book name to search in School Bag: english
+# 'English' is NOT present in the School Bag.

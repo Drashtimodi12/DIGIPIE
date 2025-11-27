@@ -59,3 +59,39 @@ b2.bank_policy()
 b2.profile()
 b2.withdraw()
 b2.deposit()
+
+# OP:
+
+# --- BANK POLICY ---
+# 1. Minimum balance must be ₹500.
+# 2. ATM withdrawal limit: ₹25,000 per day. 
+# 3. Proper KYC documents are mandatory.    
+
+# Bank Name      : Bank of Baroda
+# Account Holder : Drashti
+# Balance        : ₹20500.0
+
+# Enter amount to withdraw on your account: 200
+# You withdraw amount is 200.0. 
+# After withdraw Account balance is: 20300.0.
+
+# Enter amount to Deposit on your account: 4000
+# Your diposit amount is 4000.0. 
+# After diposit account balance is: 24300.0.
+
+# --- BANK POLICY ---
+# 1. Minimum balance must be ₹500.
+# 2. ATM withdrawal limit: ₹25,000 per day.
+# 3. Proper KYC documents are mandatory.
+
+# Bank Name      : Bank of Baroda
+# Account Holder : Sejal
+# Balance        : ₹2010
+
+# Enter amount to withdraw on your account: 10
+# You withdraw amount is 10.0. 
+# After withdraw Account balance is: 2000.0.
+
+# Enter amount to Deposit on your account: 40  
+# Your diposit amount is 40.0. 
+# After diposit account balance is: 2040.0.

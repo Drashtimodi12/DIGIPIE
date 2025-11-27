@@ -1,21 +1,21 @@
-# Loop task — Print table of any number
-
+# List task — Find largest number
+import math
 def greet(fun):
     def start():
-        print("Wellcome To printing Table according your input.")
-
-        a = int(input("Enter number: "))
-
-        for i in range(1, 11):
-            result = a * i
-            fun(a, i, result)
-        
-        print("Thank You\n")
-        
+        print("-----START-----")
+        a = [3, 9, 1, 7, 4]
+        b = max(a)
+        fun(b)
+        print("-----END-----\n")
     return start
 
 @greet
-def table(a, i, result):
-    print(f"{a} * {i} = ", result)
+def num(b):
+    print("Largest number: ", b)
 
-table()
+num()
+
+# OP:
+# -----START-----
+# Largest number:  9
+# -----END-----

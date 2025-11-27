@@ -12,6 +12,7 @@ def reverse(a):
         return a
     else:
         return reverse(a[1:]) + a[0] 
+        # return reverse("at") + "c" -> return reverse("t") + "a" -> return reverse("") + "t"
 
 word = input("Enter string: ").lower()
 print(reverse(word))

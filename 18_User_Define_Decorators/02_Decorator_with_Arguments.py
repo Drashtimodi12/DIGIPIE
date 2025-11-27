@@ -1,5 +1,24 @@
-# Add two numbers using a decorator
+# 2. Decorator with Arguments:-   Here, the decorator itself takes arguments.
 
+
+def repeat(n):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(n):
+                func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@repeat(3)
+def hello():
+    print("Hello")
+
+hello()
+
+print("\n=============================\n")
+
+
+# Add two numbers using a decorator
 def add(fun):
     # This function will wrap the original function
     def start(a, b):

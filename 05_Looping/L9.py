@@ -5,3 +5,12 @@ m = 1
 for i in a:
     m *= i
 print("Product of all elements: ", m)
+
+print("\n====================\n")
+
+
+while i < len(a) :
+    m *= a[i]
+    i += 1
+
+print("Product of all elements: ", m)

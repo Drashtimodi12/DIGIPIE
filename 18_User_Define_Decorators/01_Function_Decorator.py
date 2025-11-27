@@ -1,15 +1,9 @@
 """
-Definition: A decorator is a special function that adds extra functionality to another function without 
-            modifying its actual code.
-        A decorator wraps another function and allows you to run code before or after the main function executes
-
-Why Do We Use Decorators? 
-    Add extra behavior to functions
-    Avoid rewriting the same code again and again
-    Keep code clean and reusable
-    Implement logging, authentication, timing, access control, etc.
+1. Function Decorator (Basic Decorator):-  This is the most common type.
+    Wraps a function
+    Adds extra behavior
+    Uses *args and **kwargs
 """
-
 
 # Decorator function
 def greet(fx):
@@ -32,6 +26,8 @@ def add(a, b):
 
 # Calling decorated hello()
 hello()
+
+print("\n===================\n")
 
 # Calling decorated add()
 add(3, 6)

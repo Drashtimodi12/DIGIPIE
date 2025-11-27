@@ -1,28 +1,36 @@
-# Function task — Reverse a string
+# Loop task — Print table of any number
 
 def greet(fun):
-    # Decorator function
     def start():
-        print("WELCOME")
+        print("Wellcome To printing Table according your input.")
 
-        # Take input inside decorator
-        a = input("Enter any string to reverse: ")
+        a = int(input("Enter number: "))
 
-        # Reverse the string
-        reversed_string = a[::-1]
-
-        # Call original function with reversed string
-        fun(reversed_string)
-
-        print("Thank you")
+        for i in range(1, 11):
+            result = a * i
+            fun(a, i, result)
+        
+        print("Thank You\n")
+        
     return start
 
-
 @greet
-def st(result):
-    # This function only prints the reversed string
-    print("Reversed string:", result)
+def table(a, i, result):
+    print(f"{a} * {i} = ", result)
 
+table()
 
-# Call the function
-st()
+# OP:
+# Wellcome To printing Table according your input.
+# Enter number: 2
+# 2 * 1 =  2
+# 2 * 2 =  4
+# 2 * 3 =  6
+# 2 * 4 =  8
+# 2 * 5 =  10
+# 2 * 6 =  12
+# 2 * 7 =  14
+# 2 * 8 =  16
+# 2 * 9 =  18
+# 2 * 10 =  20
+# Thank You

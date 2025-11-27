@@ -6,6 +6,7 @@ def fact(a):
         return 1
     else:
         return a * (fact(a-1))
+    # fact(5) = 5 * 4 = 20 -> fact(4) = 20 * 3 = 60  -> fact(3) = 60 * 2 = 120 -> fact(2) = 120 * 1 =  0
 
 b = int(input("Enter the number for factorial: "))
 print(f"The number of factorial is {fact(b)}")

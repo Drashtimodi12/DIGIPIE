@@ -10,3 +10,5 @@ while a > 0:
 
 print("Reversed number:", rev)
    
+print("\n====================\n")
+

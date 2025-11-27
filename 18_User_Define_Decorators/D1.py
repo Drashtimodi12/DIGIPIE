@@ -19,4 +19,20 @@ def greet():
 
 
 hello()
+
+print("\n=====================\n")
+
 greet()
+
+
+# OP:
+# -----START-----
+# HEllO
+# -----END-----
+
+# =====================
+
+# -----START-----
+# Enter your name: Drashti
+# Wellcome Drashti.
+# -----END-----

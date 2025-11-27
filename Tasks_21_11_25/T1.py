@@ -9,3 +9,11 @@ class  Person:
 
 P1 = Person('Drashti', 21)
 print(f"Person name is {P1.n} and I am {P1.a} years old.")
+
+
+
+a = 10
+b = a
+print(b)
+a = 30
+print(a)

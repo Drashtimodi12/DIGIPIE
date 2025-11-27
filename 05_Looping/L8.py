@@ -7,3 +7,14 @@ for i in a:
     if i % 2 != 0:
         a.remove(i)
 print(a)
+
+print("\n====================\n")
+
+
+b =[]
+i = 0 
+while i < len(a):
+    if i % 2 == 0:
+        b.append(a[i])
+    i += 1
+print(b)

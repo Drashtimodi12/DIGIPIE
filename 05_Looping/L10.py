@@ -4,3 +4,11 @@ a = int(input("Enter a Number: "))
 
 for j in range(1, 11):
         print(f"{a} * {j} = {a * j}")
+ 
+print("\n====================\n")
+
+
+i = 1
+while i <= 10:
+    print(a, "x", i, "=", a * i)
+    i += 1
