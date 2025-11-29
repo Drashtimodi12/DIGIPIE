@@ -22,5 +22,5 @@ When do we use json.dump()?
 import json
 
 data = {"name": "Drashti", "age": 22}
-with open('Python_To_JSON_File.json', 'w') as file:
+with open('dump_Py_To_JSON_File.json', 'w') as file:
     json.dump(data, file, indent=4)

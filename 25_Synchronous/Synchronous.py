@@ -1,6 +1,6 @@
 """
-Definition:- Synchronous programming means executing tasks one after another, in a fixed sequence.
-            A task must finish completely before the next task starts. Sequential execution.
+Definition:- one task happens at a time, in order. You must wait for the current task to finish before 
+        the next one starts.
 
 Ex: standing in a line at a ticket counter — the next person is served only after the previous person finishes.
 
@@ -13,31 +13,33 @@ How it works internally:
 Good for:- Simple tasks, Predictable flow, Code readability
 Not good for:- Slow operations (network, downloading), Apps needing high performance, Handling many users (web servers)
 
-
-Synchronous Execution
------------------------------------------
 Task 1 -----> Task 2 -----> Task 3 -----> Task 4
 (Waits)       (Waits)       (Waits)       (Waits)
 
-Tasks run sequentially. Next task starts only after previous finishes. Slow if tasks involve waiting (e.g., sleep, I/O)
+Where Synchronous Is Commonly Used?
+    CPU-heavy calculations
+    Simple scripts
+    File handling (reading/writing files)
+    CLI (command-line) programs
+    Backend functions that don’t involve long I/O waits
+
 """
 
 import time   # time.sleep() is used to simulate a time-consuming task
 
 def fun1():
-    print("Task 1 Start")
     time.sleep(2)          # Simulating a delay of 2 seconds
-    print("Task 1 Finished")
+    print("Task 1 Perform")
 
 def fun2():
-    print("Task 2 Start")
     time.sleep(2)          # Simulating a delay of 2 seconds
-    print("Task 2 Finished")
+    print("Task 2 Perform")
 
 def main():
-    # In synchronous programming, tasks execute one after another
+    print("Start to perform task...")
     fun1()  # First complete Task 1
     fun2()  # After Task 1 finishes, start Task 2
+    print("End all task...")
 
 # Running the synchronous program
 main()  # Total time = 2 sec + 2 sec = 4 seconds

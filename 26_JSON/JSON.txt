@@ -1,30 +1,48 @@
-JSON = JavaScript Object Notation
-    It is a lightweight, text-based format used to store and transfer data.
-    A simple way to send data between frontend and backend
+What is JSON(JavaScript Object Notation)? 
+    It is a lightweight, text-based format used for storing and transferring data between applications.
+    JSON is easy for humans to read and easy for machines to parse.
     A structured text format similar to Python dictionaries
 
-JSON is used everywhere:
-    APIs, Web applications, Mobile apps, Databases, Configuration files
+Before using JSON, import the module:       """import json"""
 
+It is mainly used to exchange data between:
+    Frontend ↔ Backend
+    Server ↔ Client
+    Web apps, Mobile apps, APIs, Databases
+
+Why is JSON used?
+    Simple and lightweight; Language-independent; Works on all platforms; Most APIs use JSON; 
+    Stores configuration data; Easy to convert into Python objects
 
 Basic JSON Rules
-    Data is written in key–value pairs   {"name": "Drashti", "age": 22}
-    Keys must be inside double quotes ""
-    Values can be:  String, Number, Boolean, Object, Array, Null
+    Data is written in key–value pairs; Keys must be inside double quotes ("")
+    Example:    {"name": "Drashti", "age": 22}
+    Values can be:
+        String → "Drashti"
+        Number → 22
+        Boolean → true, false
+        Null → null
+        Array → [1, 2, 3]
+        Object → {"x": 10, "y": 20}
 
+JSON                                             Python Dictionary
+    Keys                                must use double quotes	Can use single (') or double (")
+    true, false	                        True, False
+    null	                            None
+    Limited (string, number,            Can store anything (functions, classes, objects)
+    object, array, boolean, null)	
+    Used for data transfer	            Used in Python programs
 
-JSON	
-    Keys must be in "double quotes"	
-    true, false, null	
-    Only strings, numbers, booleans, arrays, objects	
-
-Python Dict:
-    Can use quotes or no quotes
-    True, False, None
-    Can store anything (functions, objects, etc.)
-
-
-"""import json"""
+Python          JSON
+    dict	    Object
+    list	    Array
+    tuple	    Array
+    str	        String
+    int	        Number
+    float	    Number
+    True	    true
+    False	    false
+    None	    null
 
 Useful json module functions
         Function	        Use
@@ -32,6 +50,8 @@ Useful json module functions
     json.loads()	Convert JSON string to Python
     json.dump()	    Write JSON directly to a file
     json.load()	    Read JSON directly from a file
+
+
 
 
 

@@ -22,8 +22,20 @@ import json
 
 # Use json.loads() ONLY when the input is a string
 json_str = '{"name": "Drashti", "age": 22, "skills": ["Python", "Django"]}'
-print("JSON String is ", type(json_str))    # OP: JSON String is  <class 'str'>
+print("JSON data is ", type(json_str))    # OP: JSON data is  <class 'str'>
 data = json.loads(json_str) 
-print(data["name"], data["skills"][0])      # OP: Drashti Python
-print(data)         # OP: {'name': 'Drashti', 'age': 22}
 
+print("\n=============================\n")
+# Converts JSON string → Python object (dict)
+print("After conversion, Data format is ", type(data))
+print(data["name"], data["skills"][0])      
+print(data)         
+
+# op:
+# JSON data is  <class 'str'>
+
+# =============================
+
+# After conversion, Data format is  <class 'dict'>
+# Drashti Python
+# {'name': 'Drashti', 'age': 22, 'skills': ['Python', 'Django']}

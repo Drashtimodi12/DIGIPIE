@@ -62,3 +62,9 @@ kwargs = {} (no keyword arguments given)
 args = () (no positional arguments)
 kwargs = {'a': 10, 'b': 20} (two keyword arguments)
 """
+
+# Q30. Write a decorator that runs a function 3 times before returning the final output. 
+# Q31. Write a decorator to check age before allowing a function to execute (age >= 18). 
+# Q32. Write a decorator that transforms the result of a function to uppercase. 
+# Q33. Write a decorator to log every call to a file (log.txt). 
+# Q34. Write a decorator that counts how many times a function was called.

@@ -1,11 +1,11 @@
 """
-Definition:- Asynchronous programming is a programming technique where multiple tasks run independently, 
-                without waiting for each other to complete.
+Asynchronous:- this execution lets multiple tasks run without blocking each other by using non-blocking I/O and
+     an event loop, making programs faster and more efficient for operations that involve waiting.
 
 Ex: “Start a task → donot wait for it → move to next task → come back when the first task is done.”
 
 This approach is excellent for tasks that spend a lot of time waiting, such as:
-    API calls, File downloads, Database queries, Network operations, Timers
+    Downloading files; Calling APIs; Database queries; Sending emails; Timer tasks; Background processingrs
 
 How Asynchronous Works in Python:- 
     async def keyword --> Defines a coroutine (an asynchronous function).
@@ -37,8 +37,6 @@ Task 1: Start --- Wait ⏳ --- Continue -------- Finish
 Task 2: Start ------+------ Continue --------- Finish
                     |
 Task 3: Start ------+------ Continue --------- Finish
-
-Tasks don’t block each other. While one is waiting, others run. Uses async / await
 """
 
 
@@ -55,6 +53,7 @@ async def fun1():
     await asyncio.sleep(5)
     
     print("Function 1 Stop.")
+
 
 # -----------------------------------------
 # Asynchronous Function 2
@@ -80,3 +79,10 @@ async def main():
 # Start the event loop and run the program
 # -----------------------------------------
 asyncio.run(main())
+
+
+# OP:
+# Function 1 Start.
+# Function 2 Start.
+# Function 2 Stop.
+# Function 1 Stop.

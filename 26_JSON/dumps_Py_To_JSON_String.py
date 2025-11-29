@@ -19,7 +19,22 @@ When do we use json.dumps()?
 
 import json
 
-data = {"name": "Drashti", "age": 22, "skills": ["Python", "Django"]}
-print("Data format is ", type(data))    # OP: Data format is  <class 'dict'>
-json_str = json.dumps(data)
-print(json_str)         # OP: {"name": "Drashti", "age": 22, "skills": ["Python", "Django"]}
+data = {"name": "Drashti", "age": 22, "skills": ["Python", "Django"]}       # Python dict
+print("Data format is ", type(data))    
+
+print("\n=============================\n")
+json_str = json.dumps(data, indent=4, sort_keys=True) 
+print(json_str)         
+# OP: 
+# Data format is  <class 'dict'>
+
+# =============================
+
+# {
+#     "age": 22,
+#     "name": "Drashti",
+#     "skills": [
+#         "Python",
+#         "Django"
+#     ]
+# }
