@@ -37,13 +37,13 @@ finally:
     
     # Step 3: Insert new data into the employee table
     # query = "insert into employee (NAME, AGE, MARKS) VALUES ('SEJAL', 28, 9)"
-    # cursor .execute(query)
+    # cursor.execute(query)
     # conn.commit()
     # print("Data inserted successfully.")
 
     # Step 4: Fetch and display all records from the employee table
-    cursor .execute("SELECT * FROM employee")
-    rows = cursor .fetchall()
+    cursor.execute("SELECT * FROM employee")
+    rows = cursor.fetchall()
     print("\nAll Employee Records:")
     for row in rows:
         print(row)

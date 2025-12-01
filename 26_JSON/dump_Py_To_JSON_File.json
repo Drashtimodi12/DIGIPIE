@@ -1,4 +1,21 @@
 {
     "name": "Drashti",
-    "age": 22
+    "age": 22,
+    "percentage": 89.75,
+    "is_student": true,
+    "married": false,
+    "hobbies": [
+        "coding",
+        "music"
+    ],
+    "marks": [
+        90,
+        85,
+        88
+    ],
+    "address": {
+        "city": "Surat",
+        "state": "Gujarat"
+    },
+    "nothing": null
 }

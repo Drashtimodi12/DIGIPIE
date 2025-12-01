@@ -9,11 +9,11 @@ When do we use json.load()?
     Reading saved user data
     Importing JSON for processing
 
-Parameter	        Use
-object_hook	    modify decoded dict
-parse_int	    customize integer parsing
-parse_float	    customize float parsing
-strict=False	allow trailing commas
+    Parameter	        Use
+    object_hook	    modify decoded dict
+    parse_int	    customize integer parsing
+    parse_float	    customize float parsing
+    strict=False	allow trailing commas
 """
 
 # Read JSON file into Python dict
@@ -26,5 +26,5 @@ print(type(data))
    
 # OP: 
 # Read JSON file into Python dict: 
-#  {'name': 'Drashti', 'age': 22}
+#  {'name': 'Drashti', 'age': 22, 'percentage': 89.75, 'is_student': True, 'married': False, 'hobbies': ['coding', 'music'], 'marks': [90, 85, 88], 'address': {'city': 'Surat', 'state': 'Gujarat'}, 'nothing': None}
 # <class 'dict'>

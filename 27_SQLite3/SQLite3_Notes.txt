@@ -1,0 +1,239 @@
+** What is SQLite3?
+==  SQLite3 is a lightweight, simple database that stores all your data in one single file on your computer.
+    It is one of the easiest databases to use, especially for beginners, because:
+No server installation needed
+No setup required
+Runs inside your application
+Uses one small file to store everything
+    Think of SQLite as a small notebook where your program can write and read data.
+
+
+
+** Why is it called SQLite?
+==  SQL → Structured Query Language (language for databases)
+    Lite → Lightweight (very small and easy to use)
+    3 → Version 3 of SQLite
+
+
+
+** Where is SQLite used?
+==  Python comes with SQLite built-in, so you don't need to install anything.
+    SQLite is used almost everywhere:
+    📱 Mobile apps (Android, iOS)
+    🖥️ Desktop apps
+    🌐 Browsers (Chrome, Firefox)
+    🧪 Small projects
+    👩‍💻 Learning database programming
+    🧠 Python applications
+
+
+
+** How SQLite stores data?
+==  SQLite stores everything inside a single .db file like:
+        mydatabase.db;  student.db
+    This file contains tables, rows, and columns — just like Excel, but more powerful.
+
+
+
+** Why beginners love SQLite?
+==  Very easy to start; No server required; Fast and secure
+    Works with Python using the module:     ******import sqlite3******
+
+
+
+** Most important basic SQLite commands.
+==  1. Create a Database:-  In SQLite, the database is just a file:
+        import sqlite3
+        con = sqlite3.connect("mydatabase.db")
+    
+==  2. Create Table
+        CREATE TABLE student (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            age INTEGER,
+        );
+
+==  3. Insert Data into Table
+    Insert single row:
+        INSERT INTO student (name, age) VALUES ('Raj', 20);
+    Insert multiple rows:
+        INSERT INTO student (name, age) VALUES ('Priya', 22), ('Meet', 21);
+
+==  4. Display All Data (SELECT)
+        SELECT * FROM student;
+    Select specific columns:
+        SELECT name, age FROM student;
+    Select with condition:
+        SELECT * FROM student WHERE age = 21;
+
+==  5. Update Data
+        UPDATE student SET age = 23 WHERE name = 'Raj';
+
+==  6. Delete Data
+        DELETE FROM student WHERE id = 2;
+
+==  7. Drop Table (Delete Entire Table)
+        DROP TABLE student;
+
+==  8. Add New Column
+        ALTER TABLE student ADD COLUMN marks INTEGER;
+
+==  9. Delete Column (SQLite doesn't support direct drop column)
+        You have to create a new table.
+
+==  10. Basic Aggregate Functions
+    Count rows:
+        SELECT COUNT(*) FROM student;
+    Max, Min:
+        SELECT MAX(age) FROM student;
+        SELECT MIN(age) FROM student;
+    Average:
+        SELECT AVG(age) FROM student;
+    Sum:
+        SELECT SUM(age) FROM student;
+
+==  10.  Ordering & Limiting
+    Order by ascending:
+        SELECT * FROM student ORDER BY age ASC;
+    Order by descending:
+        SELECT * FROM student ORDER BY age DESC;
+    Limit:
+        SELECT * FROM student LIMIT 5;
+        (This will show only first 5 rows.)
+    LIMIT with OFFSET:  If you want to skip some rows:
+        SELECT * FROM employee LIMIT 5 OFFSET 2;
+        (This will skip the first 2 rows and show the next 5 rows.)
+
+==  11.  WHERE with Operators
+    Greater than:
+        SELECT * FROM student WHERE age > 20;
+    Between:
+        SELECT * FROM student WHERE age BETWEEN 18 AND 25;  
+    LIKE (pattern search):
+        SELECT * FROM student 
+        WHERE name LIKE 'P%'        # Name starting with P        Ex: Pooja, Priya
+        OR name LIKE '%a'           # Name ends with a     Ex: Sneha, Riya
+        OR name LIKE '%ri%'         # Name containing "ri" anywhere        Ex: Richa, Trisha, Priya
+        OR name LIKE 'P__a'         # Name starting with P, ending with a, and exactly 4 letters, __ → two characters in between       Ex: Pina, Pooa
+        OR name LIKE '_____'        # Names with exactly 5 letters/characters      Ex: Sneha, Riyaan
+        OR name LIKE '_r%'          # Second letter should be r        Ex: Kiran, Krishna, Srishti
+        OR name LIKE 'P%i';         # Name starting with P and ending with i       Ex: Pavi, Purni
+
+
+
+** SQLite Data Types.
+==  SQLite accepts many type names but internally converts them into 5 storage classes.
+    This means SQLite actually uses 5 main data types (called storage classes).
+    All data you store will fall into one of these.
+
+==  1. NULL:    Represents no value / empty value.
+        Used when data is optional.     Ex: NULL
+
+==  2. INTEGER(INT, SMALLINT, BIGINT):     
+        Stores whole numbers (positive or negative, no decimals).
+        Ex: 10, 0, -5, 1000
+        SQLite stores integer values in: 1, 2, 3, 4, 6, or 8 bytes
+            (Automatically depends on the size of the number — no manual byte selection needed)
+        Used for:       IDs, age, count, whole marks, quantity.
+
+==  3. REAL/DECIMAL/NUMERIC (FLOAT, DOUBLE, BOOLEAN, DATE, DATETIME):    
+    Stores decimal / floating-point numbers. Size Depends on digits    Ex: 5.6, 99.99, -3.14
+        DECIMAL:    DECIMAL(total_digits, digits_after_decimal)     Ex: salary DECIMAL(10,2)    -- 45000.75
+        BOOLEAN:    Stores True(1)/ False(0) values.
+            is_active BOOLEAN   -- 1 for active, 0 for inactive
+        DATE:   Stores date only.   Ex: '2000-12-01'
+            SQLite stores as TEXT ('YYYY-MM-DD'), REAL (Julian day), or INTEGER (Unix timestamp).
+        DATETIME:   Stores date and time.   Ex: '2025-12-01 10:15:00'
+            Stored as TEXT ('YYYY-MM-DD HH:MM:SS'), REAL, or INTEGER.
+    Used for:   Price, percentage, rating, measurement.
+
+
+==  4. TEXT(CHAR, VARCHAR, CLOB):    
+        Stores strings / characters.
+        Stored exactly as entered.      Ex: 'Drashti', 'Surat', 'Python123'
+        Used for:  Name, email, city, address, password, description.
+
+==  5. BLOB(Binary Large Object)(BLOB, BINARY):    
+        Stores raw data exactly as it is.
+        Used for files and binary data.
+        Ex: Images, PDFs, videos, audio, encrypted data.
+        Used for: Saving profile pictures, documents, Multimedia files, etc.
+
+
+
+** SQLite3 Constraints
+==  Constraints are rules applied to columns or tables to enforce data integrity.
+    They ensure that the data stored in the database is valid and consistent.
+    
+==  1. PRIMARY KEY:     Uniquely identifies each record in a table.
+        Only one primary key per table.     Automatically NOT NULL.
+        Ex: id INTEGER PRIMARY KEY
+        Used for: Unique identifiers (IDs)
+
+==  2. AUTOINCREMENT:   Used with INTEGER PRIMARY KEY to automatically increase value for each new row.
+        Starts from 1 and increases by 1.
+        Ex: id INTEGER PRIMARY KEY AUTOINCREMENT
+        Used for: Auto-incrementing IDs
+
+==  3. NOT NULL:    Ensures a column cannot have NULL values.
+        Data must be provided when inserting.
+        Ex: name TEXT NOT NULL
+        Used for: Mandatory fields like Name, Email
+
+==  4. UNIQUE:    Ensures all values in a column are unique.
+        Can be applied to one or more columns.
+        Ex: email TEXT UNIQUE
+        Used for: Email, Username, Phone number
+    UNIQUE + NOT NULL:   Combination ensures no duplicate and no empty value.
+        Ex: username TEXT UNIQUE NOT NULL
+
+==  5. DEFAULT:     Provides a default value if none is specified during insert.
+        Ex: status TEXT DEFAULT 'Active'
+        Used for: Default status, counters, flags
+
+==  6. CHECK:   Ensures column values satisfy a condition.
+        Used to restrict input values.
+        Ex: age INTEGER CHECK(age >= 18)
+        Used for: Age restrictions, valid ranges, custom rules
+
+==  7. FOREIGN KEY:     Enforces referential integrity between two tables.
+        A column in one table refers to the PRIMARY KEY in another table.
+        Ex: order_id INTEGER,
+            customer_id INTEGER,
+            FOREIGN KEY(customer_id) REFERENCES customer(id)
+        Used for: Linking tables (Orders → Customers)
+
+==  8. COMPOSITE KEY:   Primary key that uses more than one column.
+        Ensures unique combination of values.
+        Ex: PRIMARY KEY (student_id, course_id)
+        Used for: Many-to-many relationships
+
+
+
+**  SQLite3 Relationships.
+==  In databases, relationships define how tables are connected to each other.
+    SQLite3 supports three main types of relationships: One-to-One, One-to-Many, and Many-to-Many.
+
+==  1. One-to-One (1:1):    Each row in Table A is linked to exactly one row in Table B, and vice versa.
+        Usually, both tables share the same PRIMARY KEY, or one table has a UNIQUE FOREIGN KEY.
+        Ex: CREATE TABLE person (person_id INTEGER PRIMARY KEY, name TEXT);
+            CREATE TABLE passport (passport_id INTEGER PRIMARY KEY, person_id INTEGER UNIQUE, country TEXT,
+                    FOREIGN KEY(person_id) REFERENCES person(person_id));
+        Explanation:  Each person can have only one passport. `person_id` in `passport` references `person_id` in `person`.
+
+==  2. One-to-Many (1:N):   Each row in Table A can be linked to multiple rows in Table B.
+        Most common relationship in databases.
+        Ex: CREATE TABLE customer (customer_id INTEGER PRIMARY KEY, name TEXT);
+            CREATE TABLE orders (order_id INTEGER PRIMARY KEY, customer_id INTEGER, order_date TEXT, 
+                    FOREIGN KEY(customer_id) REFERENCES customer(customer_id));
+        Explanation:    A customer can place multiple orders, but each order belongs to one customer.
+
+==  3. Many-to-Many (M:N):    Multiple rows in Table A can relate to multiple rows in Table B.
+        Requires a junction table (also called a linking table) to store relationships.
+        Ex: CREATE TABLE student (student_id INTEGER PRIMARY KEY, name TEXT);
+            CREATE TABLE course (course_id INTEGER PRIMARY KEY, course_name TEXT);
+            CREATE TABLE student_course (student_id INTEGER, course_id INTEGER,
+                    PRIMARY KEY(student_id, course_id), FOREIGN KEY(student_id) REFERENCES student(student_id),
+                    FOREIGN KEY(course_id) REFERENCES course(course_id));
+        Explanation: A student can enroll in many courses. A course can have many students.
+             `student_course` is the junction table that links students and courses.

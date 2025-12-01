@@ -13,7 +13,7 @@ When do we use json.dump()?
     indent	                    pretty output
     sort_keys	                alphabetical sorting
     ensure_ascii=False	        supports non-English text
-    separators	                custom separators
+    separators=(", ", " : ")	custom separators
     Same parameters as dumps()	because they behave similarly
 """
 
@@ -21,6 +21,20 @@ When do we use json.dump()?
 
 import json
 
-data = {"name": "Drashti", "age": 22}
+data = {
+    "name": "Drashti",                  # String
+    "age": 22,                          # Integer
+    "percentage": 89.75,                # Float
+    "is_student": True,                 # Boolean
+    "married": False,                   # Boolean
+    "hobbies": ["coding", "music"],     # List
+    "marks": (90, 85, 88),              # Tuple → converted to array
+    "address": {                        # Nested dictionary
+        "city": "Surat",
+        "state": "Gujarat"
+    },
+    "nothing": None                     # None → null
+}
+
 with open('dump_Py_To_JSON_File.json', 'w') as file:
     json.dump(data, file, indent=4)

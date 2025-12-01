@@ -21,21 +21,35 @@ strict=False	allows trailing commas
 import json
 
 # Use json.loads() ONLY when the input is a string
-json_str = '{"name": "Drashti", "age": 22, "skills": ["Python", "Django"]}'
-print("JSON data is ", type(json_str))    # OP: JSON data is  <class 'str'>
+json_str = """
+{
+    "name": "Drashti",
+    "age": 22,
+    "percentage": 89.75,
+    "is_student": true,
+    "married": false,
+    "hobbies": ["coding", "music"],
+    "marks": [90, 85, 88],
+    "address": {
+        "city": "Surat",
+        "state": "Gujarat"
+    },
+    "nothing": null
+}
+"""
+
+print("Before conversion, Data format is ", type(json_str))    # OP: JSON data is  <class 'str'>
 data = json.loads(json_str) 
 
 print("\n=============================\n")
 # Converts JSON string → Python object (dict)
 print("After conversion, Data format is ", type(data))
-print(data["name"], data["skills"][0])      
 print(data)         
 
 # op:
-# JSON data is  <class 'str'>
+# Before conversion, Data format is  <class 'str'>
 
 # =============================
 
 # After conversion, Data format is  <class 'dict'>
-# Drashti Python
-# {'name': 'Drashti', 'age': 22, 'skills': ['Python', 'Django']}
+# {'name': 'Drashti', 'age': 22, 'percentage': 89.75, 'is_student': True, 'married': False, 'hobbies': ['coding', 'music'], 'marks': [90, 85, 88], 'address': {'city': 'Surat', 'state': 'Gujarat'}, 'nothing': None}

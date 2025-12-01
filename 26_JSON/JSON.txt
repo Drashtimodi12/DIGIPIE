@@ -53,5 +53,27 @@ Useful json module functions
 
 
 
+Parameters for json.dumps() and json.dump()
+(Used when converting Python → JSON)
+    Parameter	                    Meaning
+    indent	                Pretty formatting (adds spaces/newlines)
+    sort_keys	            Sorts dictionary keys alphabetically
+    ensure_ascii	        False = allow Unicode (Hindi, Gujarati, emoji)
+    skipkeys	            Ignore keys that are not strings
+    default	                Convert unsupported objects (custom function)
+    separators	            Customize separators like ("," , ":")
+    cls	                    Use custom JSON encoder class (JSONEncoder)
+    allow_nan	            Allow NaN, Infinity, -Infinity values
+    check_circular	        Detect circular references (usually keep True)
+    fp (in dump only)	    File pointer to write JSON into
 
 
+Parameters for json.loads() and json.load()
+(Used when converting JSON → Python)
+        Parameter	        Meaning
+    object_hook	            Modify each dict after decoding
+    object_pairs_hook	    Preserve order of pairs (OrderedDict)
+    parse_int	            Custom function for integers
+    parse_float	            Custom function for floats
+    parse_constant	        Handle NaN, Infinity, -Infinity
+    strict	                False = allow trailing commas

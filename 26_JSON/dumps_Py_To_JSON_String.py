@@ -19,22 +19,53 @@ When do we use json.dumps()?
 
 import json
 
-data = {"name": "Drashti", "age": 22, "skills": ["Python", "Django"]}       # Python dict
-print("Data format is ", type(data))    
+data = {
+    "name": "Drashti",                  # String
+    "age": 22,                          # Integer
+    "percentage": 89.75,                # Float
+    "is_student": True,                 # Boolean
+    "married": False,                   # Boolean
+    "hobbies": ["coding", "music"],     # List
+    "marks": (90, 85, 88),              # Tuple → converted to array
+    "address": {                        # Nested dictionary
+        "city": "Surat",
+        "state": "Gujarat"
+    },
+    "nothing": None                     # None → null
+}
+print("Before conversion, Data format is ", type(data))    
 
 print("\n=============================\n")
 json_str = json.dumps(data, indent=4, sort_keys=True) 
 print(json_str)         
+print("After conversion, Data format is ", type(json_str))
+
+
+
 # OP: 
-# Data format is  <class 'dict'>
+# Before conversion, Data format is  <class 'dict'>
 
 # =============================
 
 # {
+#     "address": {
+#         "city": "Surat",
+#         "state": "Gujarat"
+#     },
 #     "age": 22,
+#     "hobbies": [
+#         "coding",
+#         "music"
+#     ],
+#     "is_student": true,
+#     "marks": [
+#         90,
+#         85,
+#         88
+#     ],
+#     "married": false,
 #     "name": "Drashti",
-#     "skills": [
-#         "Python",
-#         "Django"
-#     ]
+#     "nothing": null,
+#     "percentage": 89.75
 # }
+# After conversion, Data format is  <class 'str'>
