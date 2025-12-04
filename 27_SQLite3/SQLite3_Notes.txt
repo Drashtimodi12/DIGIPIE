@@ -1,3 +1,11 @@
+** What is SQLite used for?
+==  SQLite is a database management system used to store and manage data in a structured format. 
+    It is often used in applications that need to save data locally on a device or computer, such as 
+    mobile apps, desktop software, and embedded systems. SQLite allows developers to create databases, 
+    organize data into tables, and perform operations like inserting, updating, and querying data.
+
+
+
 ** What is SQLite3?
 ==  SQLite3 is a lightweight, simple database that stores all your data in one single file on your computer.
     It is one of the easiest databases to use, especially for beginners, because:
@@ -13,6 +21,14 @@ Uses one small file to store everything
 ==  SQL → Structured Query Language (language for databases)
     Lite → Lightweight (very small and easy to use)
     3 → Version 3 of SQLite
+
+
+
+** What type of database is SQLite?chevron
+==  SQLite is a type of relational database management system (RDBMS). It allows users to store, manage, 
+    and retrieve data in a structured format organized into tables with rows and columns. Users can define 
+    relationships between different tables, perform queries to retrieve specific data, and execute 
+    transactions to ensure data integrity.
 
 
 
@@ -81,7 +97,8 @@ Uses one small file to store everything
 ==  9. Delete Column (SQLite doesn't support direct drop column)
         You have to create a new table.
 
-==  10. Basic Aggregate Functions
+==  10. Group by :   It is used to group rows that have the same values in a column and apply aggregate 
+    functions on them.
     Count rows:
         SELECT COUNT(*) FROM student;
     Max, Min:
@@ -92,7 +109,12 @@ Uses one small file to store everything
     Sum:
         SELECT SUM(age) FROM student;
 
-==  10.  Ordering & Limiting
+== 11. HAVING (Short & Easy Notes)      It is used to filter groups created by GROUP BY.
+    HAVING → filters groups after grouping
+    HAVING can use aggregate functions, WHERE cannot.
+    WHERE → filters rows before grouping
+
+==  12.  Ordering & Limiting
     Order by ascending:
         SELECT * FROM student ORDER BY age ASC;
     Order by descending:
@@ -104,7 +126,7 @@ Uses one small file to store everything
         SELECT * FROM employee LIMIT 5 OFFSET 2;
         (This will skip the first 2 rows and show the next 5 rows.)
 
-==  11.  WHERE with Operators
+==  13.  WHERE with Operators
     Greater than:
         SELECT * FROM student WHERE age > 20;
     Between:
@@ -237,3 +259,110 @@ Uses one small file to store everything
                     FOREIGN KEY(course_id) REFERENCES course(course_id));
         Explanation: A student can enroll in many courses. A course can have many students.
              `student_course` is the junction table that links students and courses.
+
+
+
+** SQLite3 JOINS
+==  JOINS are used to combine rows from two tables based on a related column (usually a foreign key).
+    Let’s assume two tables:
+    student
+        id	name
+        1	Raj
+        2	Priya
+        3	Meet
+    course
+        id	student_id	subject
+        1	1	        Python
+        2	1	        SQL
+        3	2	        Django
+    Here, course.student_id → references → student.id
+
+==  1. INNER JOIN:  INNER JOIN → Only matching rows
+    Only matching rows from both tables
+    If a student has no course → they will NOT appear.
+    Query:
+        SELECT student.name, course.subject FROM student INNER JOIN course ON student.id = course.student_id;
+    Output:
+        name	subject
+        Raj	    Python
+        Raj	    SQL
+        Priya	Django
+    Meet is missing because he has no course.
+
+==  2. LEFT JOIN (LEFT OUTER JOIN):     LEFT JOIN → All from LEFT + matching from right
+    All rows from the LEFT table + matching rows from RIGHT table
+    If no match → NULL is shown.
+    Left table = student    Right table = course
+    Query:
+        SELECT student.name, course.subject FROM student LEFT JOIN course ON student.id = course.student_id;
+    Output:
+        name	subject
+        Raj	    Python
+        Raj	    SQL
+        Priya	Django
+        Meet	NULL
+
+==  3. RIGHT JOIN:  RIGHT JOIN → All from RIGHT + matching from left
+    ❌ SQLite does NOT support RIGHT JOIN directly.
+    But we can simulate it using LEFT JOIN by swapping tables.
+    Simulated Right Join:
+        SELECT student.name, course.subject FROM course LEFT JOIN student ON course.student_id = student.id;
+    Equivalent to:
+        RIGHT JOIN student ON student.id = course.student_id
+    Output: 
+
+
+==  4. FULL OUTER JOIN:     FULL JOIN → All rows from both tables
+    ❌ SQLite does not support FULL JOIN directly.
+    But we can simulate it using UNION of left join and right join.
+    Query:  -- LEFT JOIN Union -- RIGHT JOIN (simulated)
+        SELECT student.name, course.subject FROM student LEFT JOIN course ON student.id = course.student_id
+                UNION
+        SELECT student.name, course.subject FROM course LEFT JOIN student ON course.student_id = student.id;
+    Output (full result):
+        name	subject
+        Raj	    Python
+        Raj	    SQL
+        Priya	Django
+        Meet	NULL
+        NULL	Python?
+
+==  5. CROSS JOIN:  CROSS JOIN → All combinations (A × B). 
+    Returns every combination (Cartesian product)
+    No ON condition needed.
+    If student = 3 rows and course = 3 rows → output = 9 rows.
+    Query:
+        SELECT student.name, course.subject FROM student CROSS JOIN course;
+    Output (sample):
+        name	subject
+        Raj	    Python
+        Raj	    SQL
+        Raj	    Django
+        Priya	Python
+        ...	    ...
+    Used rarely; produces a huge table.
+
+==  6. SELF JOIN: (Joining a table with itself)
+    A Self Join is when a table is joined with itself as if it were two different tables.
+    Used when:  Rows in the same table have a relationship with each other
+    Example: employee → manager, categories → subcategories, friends list, prerequisites
+    We use aliases (A, B) to treat the same table as two different tables.
+
+
+
+** What is a Transaction? (Easy Explanation)
+==  A transaction is a safe box for your database operations.
+    Meaning:
+        A transaction is a group of SQL operations executed together.
+        If all queries are successful → COMMIT
+        If any query fails → ROLLBACK
+        This ensures your database never gets damaged or partially updated.
+
+    Simple Real-Life Example
+        Imagine you are sending money:
+        Deduct ₹100 from your account
+        Add ₹100 to your friend’s account
+        If step 1 succeeds but step 2 fails → BIG LOSS!
+        So BOTH must happen together.
+        This is handled using transactions. Without transaction unsafe
+
