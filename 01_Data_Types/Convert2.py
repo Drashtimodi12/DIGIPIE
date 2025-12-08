@@ -5,4 +5,4 @@ values = ["Drashti", 21, "Surat"]
 # Convert into dictionary:
 
 a = dict(zip(keys, values))
-print(a)
+print(a)        # {'name': 'Drashti', 'age': 21, 'city': 'Surat'}

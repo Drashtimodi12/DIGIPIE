@@ -10,16 +10,16 @@ NOT Allowed: Non-ASCII characters (like Gujarati, Hindi, emojis)
 """
 
 data = b"Drashti"
-print(data, type(data))
+print(data, type(data))     # b'Drashti' <class 'bytes'>
 
 # Converting normal string → bytes.   Use .encode()
 text = "Modi"
 byte_data = text.encode()
-print(byte_data)
+print(byte_data)            # b'Modi'
 
 
 
 # Converting bytes → string
 text = b"Drashti"
 byte_data = text.decode()   # ✔ Convert bytes → string
-print(byte_data)
+print(byte_data)            # Drashti

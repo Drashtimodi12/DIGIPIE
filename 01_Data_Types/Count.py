@@ -13,3 +13,12 @@ for i in data:
 
 for k, v in item_count.items():
     print(f"{k}: {v}")    
+
+
+# int: 2
+# str: 1  
+# float: 1
+# bool: 1 
+# list: 1 
+# dict: 1 
+# tuple: 1

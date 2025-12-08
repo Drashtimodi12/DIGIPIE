@@ -1,0 +1,29 @@
+/* Center everything horizontally */
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 50px;
+}
+
+/* Header flex layout */
+.header {
+    display: flex;
+    align-items: center;   /* Vertically align logo and title */
+    justify-content: center; /* Center horizontally */
+    gap: 15px; /* Space between logo and title */
+}
+
+
+/* Title styling */
+.title {
+    font-size: 48px;
+    margin: 0;
+}
+
+/* Subtitle styling */
+.subtitle {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: normal;
+}

@@ -1,4 +1,4 @@
 import os
 
-os.remove('Transaction.db')  # Delete the database file
+os.remove('Indexes.db')  # Delete the database file
 print("Database file deleted successfully.")

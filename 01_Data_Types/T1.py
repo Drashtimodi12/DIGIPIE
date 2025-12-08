@@ -6,4 +6,4 @@ new = []
 for n in a:
     if n not in new:
         new.append(n)
-print(new)
+print(new)          # [1, 2, 3, 4, 5]

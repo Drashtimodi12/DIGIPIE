@@ -57,6 +57,26 @@ Uses one small file to store everything
 
 
 
+** fetchone()
+==  Returns only one row from the result set.
+    When to use:
+        When you know only one record will match the query (e.g., searching by ID).
+        When you want to fetch results row by row inside a loop.
+
+** fetchmany(size)
+==  Returns a specific number of rows from the result set.
+    When to use:
+        When you want results in chunks.
+        Useful for large databases to reduce memory usage.
+
+** fetchall()
+==  Returns all remaining rows from the result set.
+    When to use:
+        When the result is small.
+        When you want to process all data at once.
+
+
+
 ** Most important basic SQLite commands.
 ==  1. Create a Database:-  In SQLite, the database is just a file:
         import sqlite3
@@ -365,4 +385,152 @@ Uses one small file to store everything
         If step 1 succeeds but step 2 fails → BIG LOSS!
         So BOTH must happen together.
         This is handled using transactions. Without transaction unsafe
+
+
+
+** What is an INDEX in SQLite?
+==  An index in SQLite3 is a special data structure that helps the database find and retrieve rows faster, 
+    just like a book, an index helps you quickly find a topic without reading every page.
+
+    Without INDEX → SQLite searches every row (slow)
+    With INDEX → SQLite jumps directly to the correct row (fast)
+    It stores selected column values in sorted order.
+    It does NOT change the actual table data.
+    It is automatically used by SQLite when searching or filtering data.
+
+==  Why INDEX is used? (Main Purpose) Advantages
+        To speed up searching, filtering, JOIN operations, ORDER BY and GROUP BY
+        INDEX improves read/search operations, not write.
+
+==  Disadvantages of Index
+    Slower INSERT   (Since index also updates)
+    Takes extra storage     (Small amount, but still)
+
+==  When should you NOT use INDEX?
+        ❌ Do NOT create index on columns that change very frequently
+        ❌ Do NOT index every column
+        ❌ Do NOT index tiny tables (5–10 rows) → no benefit
+        ❌ Too many indexes slow down INSERT, UPDATE, DELETE
+        (Because SQLite must update the index also)
+
+==  How to Create an Index
+    SYNTX:  *****CREATE INDEX index_name ON table_name(column_name);*****
+
+==  How to View All INDEXES
+        PRAGMA index_list('student');
+    To see index details:
+        PRAGMA index_info('idx_student_name');
+
+==  How to Delete an Index
+    *****DROP INDEX idx_student_name;*****
+
+==  Types of INDEX in SQLite
+        CREATE TABLE students ( id INTEGER PRIMARY KEY, name TEXT NOT NULL, 
+                                email TEXT UNIQUE, city TEXT, age INTEGER  );
+
+    1. NORMAL INDEX:    Used for faster searching on column.
+        Example: Create index on city.
+            CREATE INDEX IDX_STU_CITY ON students(city)
+        Why?    If you search by city:
+            SELECT * FROM students WHERE city = 'Surat';
+        This will be very fast.
+
+    2. UNIQUE INDEX: Prevents duplicate values + speeds up search.
+        We can create a unique index on email (even though UNIQUE is already applied, both examples are valid).
+        Example: Create index on email.
+            CREATE INDEX IDX_STU_EMAIL ON students(email)
+        Why?    Ensures no two students have the same email.
+
+    3. MULTI-COLUMN INDEX (Composite Index):       Index on two or more columns together.
+            CREATE INDEX IDX_STU_CITY_EMAIL ON students(city, email)
+        Why?    Useful when you run queries like:
+            SELECT * FROM students WHERE city = 'Mumbai' AND age = 20;
+        SQLite uses this index for combined filtering.
+
+    4. AUTOMATIC INDEX (Primary Key Index)
+    SQLite automatically creates:
+        PRIMARY KEY index
+        UNIQUE constraint index
+    You do NOT create these manually.
+    Already created automatically:
+        id INTEGER PRIMARY KEY     --> automatic index
+        email TEXT UNIQUE          --> automatic unique index
+
+
+
+** What is a VIEW?
+==  A VIEW is like a saved SELECT query. It is a virtual table created from a SELECT query. 
+    Think of it as:
+        A virtual table
+        it looks like a table
+        it behaves like a table
+        but it does not store data itself, it only shows data from other tables.
+
+==  Why use views?
+    To simplify complex queries
+    To hide sensitive columns (like passwords, salary, IDs)
+    To create reports using JOIN
+    To avoid writing the same query again and again
+    To give limited access to specific columns
+
+    Real-life example:-     Think of a VIEW as a window:
+                            Your house = original table
+                            Window = view
+                            You can see inside but not change the original structure.
+    
+==  Why Use a VIEW? (Advantages)
+    Simplifies complex queries
+        Instead of writing long JOIN queries again & again, create a VIEW once.
+    Increases security
+       Hide sensitive columns (like salary, password).
+    Helps create reports
+        Views are useful for dashboards or filtered results.
+    Reduces repetitive code
+        You can SELECT from a view just like a normal table.
+
+==  ❌ Limitations of Views
+    View does NOT store data.
+    Some views cannot be updated (especially if they use JOINs, GROUP BY, etc.).
+    Performance may be slower for very large tables.
+
+==  How to Create a VIEW   Syntax
+    ********CREATE VIEW view_name AS
+            SELECT columns FROM table_name WHERE condition;*************
+
+==  2 Types of Views in SQLite:
+    1. Simple View
+        Created using SELECT from one table
+        Often updatable
+        Easy to maintain
+        Example:        CREATE VIEW view_student_basic AS SELECT id, name, city FROM student;
+
+    2. Complex View
+        Uses JOIN, GROUP BY, HAVING, functions
+        Usually NOT updatable
+        Example:        CREATE VIEW view_student_course AS SELECT s.name, c.subject
+                        FROM student s JOIN course c ON s.id = c.student_id;
+
+==  How to Use a VIEW:  A VIEW acts like a table.
+    Just use:     *****SELECT * FROM view_student_basic;*******
+    You can filter:     *********SELECT name FROM view_student_basic WHERE city = 'Surat';**********
+    A view behaves like a shortcut to a query.
+
+==  How to Update Data Using a View (When Allowed)
+    SQLite allows updates only if view is simple.
+    Example Simple View:        CREATE VIEW view_emp_salary AS SELECT emp_id, emp_name, emp_salary FROM employee;
+    Update using View:      UPDATE view_emp_salary SET emp_salary = 50000 WHERE emp_id = 3;
+    SQLite internally updates the original table.
+
+==  When UPDATE is NOT Allowed
+    Updates fail when view contains:
+    JOIN, GROUP BY, DISTINCT, Aggregates (SUM, AVG), UNION
+    Example (Not updatable):        CREATE VIEW view_sales_report AS SELECT dept, SUM(salary) AS total_salary
+                                    FROM employee GROUP BY dept;
+    Trying:     UPDATE view_sales_report SET total_salary = 50000;
+    ❌ Error: View is not updatable
+
+==  Replace an Existing View
+    If you want to overwrite:   CREATE OR REPLACE VIEW view_name AS SELECT ...
+
+==  Delete (Drop) a View    *********DROP VIEW IF EXISTS view_student_basic;************
 

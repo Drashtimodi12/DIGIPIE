@@ -28,9 +28,13 @@ d = {'std1' : {
 # print all names
 for student in d.values():
     print(student['name'])
+# drashti
+# daizy
+# sejal
+# zeel
+# ansh
 print("------------------------")
 
 # find highest marks
 large = max(d.values(), key=lambda x : x ['marks'])
-print(large['name'], large['marks'])
-
+print(large['name'], large['marks'])       # daizy 48
