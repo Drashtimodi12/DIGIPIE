@@ -6,7 +6,7 @@ print("\n=== ENROLLMENT DATABASE ===\n")
 # -----------------------------------
 # Task 1: Create Database & Table
 # -----------------------------------
-con = sqlite3.connect('Enrollment.db')      # Connect to database (creates file if not exists)
+con = sqlite3.connect('05_Join.db')      # Connect to database (creates file if not exists)
 cur = con.cursor()          # Create a cursor object. It helps to execute SQL queries in
 
 cur.execute("PRAGMA foreign_keys = ON")

@@ -1,7 +1,7 @@
 import sqlite3
 import time
 
-con = sqlite3.connect('Indexes.db')
+con = sqlite3.connect('02_Indexes.db')
 cur = con.cursor()
 cur.execute('PRAGMA foreign_keys = ON')
 

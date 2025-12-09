@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect('Transaction.db')
+con = sqlite3.connect('01_Transaction.db')
 cur = con.cursor()
 
 cur.execute("PRAGMA foreign_keys = ON")

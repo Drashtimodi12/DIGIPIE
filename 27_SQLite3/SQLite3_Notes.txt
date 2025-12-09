@@ -58,108 +58,108 @@ Uses one small file to store everything
 
 
 ** fetchone()
-==  Returns only one row from the result set.
-    When to use:
-        When you know only one record will match the query (e.g., searching by ID).
-        When you want to fetch results row by row inside a loop.
+    ==  Returns only one row from the result set.
+        When to use:
+            When you know only one record will match the query (e.g., searching by ID).
+            When you want to fetch results row by row inside a loop.
 
 ** fetchmany(size)
-==  Returns a specific number of rows from the result set.
-    When to use:
-        When you want results in chunks.
-        Useful for large databases to reduce memory usage.
+    ==  Returns a specific number of rows from the result set.
+        When to use:
+            When you want results in chunks.
+            Useful for large databases to reduce memory usage.
 
 ** fetchall()
-==  Returns all remaining rows from the result set.
-    When to use:
-        When the result is small.
-        When you want to process all data at once.
+    ==  Returns all remaining rows from the result set.
+        When to use:
+            When the result is small.
+            When you want to process all data at once.
 
 
 
 ** Most important basic SQLite commands.
-==  1. Create a Database:-  In SQLite, the database is just a file:
-        import sqlite3
-        con = sqlite3.connect("mydatabase.db")
-    
-==  2. Create Table
-        CREATE TABLE student (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            age INTEGER,
-        );
+    ==  1. Create a Database:-  In SQLite, the database is just a file:
+            import sqlite3
+            con = sqlite3.connect("mydatabase.db")
+        
+    ==  2. Create Table
+            CREATE TABLE student (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT,
+                age INTEGER,
+            );
 
-==  3. Insert Data into Table
-    Insert single row:
-        INSERT INTO student (name, age) VALUES ('Raj', 20);
-    Insert multiple rows:
-        INSERT INTO student (name, age) VALUES ('Priya', 22), ('Meet', 21);
+    ==  3. Insert Data into Table
+        Insert single row:
+            INSERT INTO student (name, age) VALUES ('Raj', 20);
+        Insert multiple rows:
+            INSERT INTO student (name, age) VALUES ('Priya', 22), ('Meet', 21);
 
-==  4. Display All Data (SELECT)
-        SELECT * FROM student;
-    Select specific columns:
-        SELECT name, age FROM student;
-    Select with condition:
-        SELECT * FROM student WHERE age = 21;
+    ==  4. Display All Data (SELECT)
+            SELECT * FROM student;
+        Select specific columns:
+            SELECT name, age FROM student;
+        Select with condition:
+            SELECT * FROM student WHERE age = 21;
 
-==  5. Update Data
-        UPDATE student SET age = 23 WHERE name = 'Raj';
+    ==  5. Update Data
+            UPDATE student SET age = 23 WHERE name = 'Raj';
 
-==  6. Delete Data
-        DELETE FROM student WHERE id = 2;
+    ==  6. Delete Data
+            DELETE FROM student WHERE id = 2;
 
-==  7. Drop Table (Delete Entire Table)
-        DROP TABLE student;
+    ==  7. Drop Table (Delete Entire Table)
+            DROP TABLE student;
 
-==  8. Add New Column
-        ALTER TABLE student ADD COLUMN marks INTEGER;
+    ==  8. Add New Column
+            ALTER TABLE student ADD COLUMN marks INTEGER;
 
-==  9. Delete Column (SQLite doesn't support direct drop column)
-        You have to create a new table.
+    ==  9. Delete Column (SQLite doesn't support direct drop column)
+            You have to create a new table.
 
-==  10. Group by :   It is used to group rows that have the same values in a column and apply aggregate 
-    functions on them.
-    Count rows:
-        SELECT COUNT(*) FROM student;
-    Max, Min:
-        SELECT MAX(age) FROM student;
-        SELECT MIN(age) FROM student;
-    Average:
-        SELECT AVG(age) FROM student;
-    Sum:
-        SELECT SUM(age) FROM student;
+    ==  10. Group by :   It is used to group rows that have the same values in a column and apply aggregate 
+        functions on them.
+        Count rows:
+            SELECT COUNT(*) FROM student;
+        Max, Min:
+            SELECT MAX(age) FROM student;
+            SELECT MIN(age) FROM student;
+        Average:
+            SELECT AVG(age) FROM student;
+        Sum:
+            SELECT SUM(age) FROM student;
 
-== 11. HAVING (Short & Easy Notes)      It is used to filter groups created by GROUP BY.
-    HAVING → filters groups after grouping
-    HAVING can use aggregate functions, WHERE cannot.
-    WHERE → filters rows before grouping
+    == 11. HAVING (Short & Easy Notes)      It is used to filter groups created by GROUP BY.
+        HAVING → filters groups after grouping
+        HAVING can use aggregate functions, WHERE cannot.
+        WHERE → filters rows before grouping
 
-==  12.  Ordering & Limiting
-    Order by ascending:
-        SELECT * FROM student ORDER BY age ASC;
-    Order by descending:
-        SELECT * FROM student ORDER BY age DESC;
-    Limit:
-        SELECT * FROM student LIMIT 5;
-        (This will show only first 5 rows.)
-    LIMIT with OFFSET:  If you want to skip some rows:
-        SELECT * FROM employee LIMIT 5 OFFSET 2;
-        (This will skip the first 2 rows and show the next 5 rows.)
+    ==  12.  Ordering & Limiting
+        Order by ascending:
+            SELECT * FROM student ORDER BY age ASC;
+        Order by descending:
+            SELECT * FROM student ORDER BY age DESC;
+        Limit:
+            SELECT * FROM student LIMIT 5;
+            (This will show only first 5 rows.)
+        LIMIT with OFFSET:  If you want to skip some rows:
+            SELECT * FROM employee LIMIT 5 OFFSET 2;
+            (This will skip the first 2 rows and show the next 5 rows.)
 
-==  13.  WHERE with Operators
-    Greater than:
-        SELECT * FROM student WHERE age > 20;
-    Between:
-        SELECT * FROM student WHERE age BETWEEN 18 AND 25;  
-    LIKE (pattern search):
-        SELECT * FROM student 
-        WHERE name LIKE 'P%'        # Name starting with P        Ex: Pooja, Priya
-        OR name LIKE '%a'           # Name ends with a     Ex: Sneha, Riya
-        OR name LIKE '%ri%'         # Name containing "ri" anywhere        Ex: Richa, Trisha, Priya
-        OR name LIKE 'P__a'         # Name starting with P, ending with a, and exactly 4 letters, __ → two characters in between       Ex: Pina, Pooa
-        OR name LIKE '_____'        # Names with exactly 5 letters/characters      Ex: Sneha, Riyaan
-        OR name LIKE '_r%'          # Second letter should be r        Ex: Kiran, Krishna, Srishti
-        OR name LIKE 'P%i';         # Name starting with P and ending with i       Ex: Pavi, Purni
+    ==  13.  WHERE with Operators
+        Greater than:
+            SELECT * FROM student WHERE age > 20;
+        Between:
+            SELECT * FROM student WHERE age BETWEEN 18 AND 25;  
+        LIKE (pattern search):
+            SELECT * FROM student 
+            WHERE name LIKE 'P%'        # Name starting with P        Ex: Pooja, Priya
+            OR name LIKE '%a'           # Name ends with a     Ex: Sneha, Riya
+            OR name LIKE '%ri%'         # Name containing "ri" anywhere        Ex: Richa, Trisha, Priya
+            OR name LIKE 'P__a'         # Name starting with P, ending with a, and exactly 4 letters, __ → two characters in between       Ex: Pina, Pooa
+            OR name LIKE '_____'        # Names with exactly 5 letters/characters      Ex: Sneha, Riyaan
+            OR name LIKE '_r%'          # Second letter should be r        Ex: Kiran, Krishna, Srishti
+            OR name LIKE 'P%i';         # Name starting with P and ending with i       Ex: Pavi, Purni
 
 
 
@@ -168,38 +168,38 @@ Uses one small file to store everything
     This means SQLite actually uses 5 main data types (called storage classes).
     All data you store will fall into one of these.
 
-==  1. NULL:    Represents no value / empty value.
-        Used when data is optional.     Ex: NULL
+    ==  1. NULL:    Represents no value / empty value.
+            Used when data is optional.     Ex: NULL
 
-==  2. INTEGER(INT, SMALLINT, BIGINT):     
-        Stores whole numbers (positive or negative, no decimals).
-        Ex: 10, 0, -5, 1000
-        SQLite stores integer values in: 1, 2, 3, 4, 6, or 8 bytes
-            (Automatically depends on the size of the number — no manual byte selection needed)
-        Used for:       IDs, age, count, whole marks, quantity.
+    ==  2. INTEGER(INT, SMALLINT, BIGINT):     
+            Stores whole numbers (positive or negative, no decimals).
+            Ex: 10, 0, -5, 1000
+            SQLite stores integer values in: 1, 2, 3, 4, 6, or 8 bytes
+                (Automatically depends on the size of the number — no manual byte selection needed)
+            Used for:       IDs, age, count, whole marks, quantity.
 
-==  3. REAL/DECIMAL/NUMERIC (FLOAT, DOUBLE, BOOLEAN, DATE, DATETIME):    
-    Stores decimal / floating-point numbers. Size Depends on digits    Ex: 5.6, 99.99, -3.14
-        DECIMAL:    DECIMAL(total_digits, digits_after_decimal)     Ex: salary DECIMAL(10,2)    -- 45000.75
-        BOOLEAN:    Stores True(1)/ False(0) values.
-            is_active BOOLEAN   -- 1 for active, 0 for inactive
-        DATE:   Stores date only.   Ex: '2000-12-01'
-            SQLite stores as TEXT ('YYYY-MM-DD'), REAL (Julian day), or INTEGER (Unix timestamp).
-        DATETIME:   Stores date and time.   Ex: '2025-12-01 10:15:00'
-            Stored as TEXT ('YYYY-MM-DD HH:MM:SS'), REAL, or INTEGER.
-    Used for:   Price, percentage, rating, measurement.
+    ==  3. REAL/DECIMAL/NUMERIC (FLOAT, DOUBLE, BOOLEAN, DATE, DATETIME):    
+        Stores decimal / floating-point numbers. Size Depends on digits    Ex: 5.6, 99.99, -3.14
+            DECIMAL:    DECIMAL(total_digits, digits_after_decimal)     Ex: salary DECIMAL(10,2)    -- 45000.75
+            BOOLEAN:    Stores True(1)/ False(0) values.
+                is_active BOOLEAN   -- 1 for active, 0 for inactive
+            DATE:   Stores date only.   Ex: '2000-12-01'
+                SQLite stores as TEXT ('YYYY-MM-DD'), REAL (Julian day), or INTEGER (Unix timestamp).
+            DATETIME:   Stores date and time.   Ex: '2025-12-01 10:15:00'
+                Stored as TEXT ('YYYY-MM-DD HH:MM:SS'), REAL, or INTEGER.
+        Used for:   Price, percentage, rating, measurement.
 
 
-==  4. TEXT(CHAR, VARCHAR, CLOB):    
-        Stores strings / characters.
-        Stored exactly as entered.      Ex: 'Drashti', 'Surat', 'Python123'
-        Used for:  Name, email, city, address, password, description.
+    ==  4. TEXT(CHAR, VARCHAR, CLOB):    
+            Stores strings / characters.
+            Stored exactly as entered.      Ex: 'Drashti', 'Surat', 'Python123'
+            Used for:  Name, email, city, address, password, description.
 
-==  5. BLOB(Binary Large Object)(BLOB, BINARY):    
-        Stores raw data exactly as it is.
-        Used for files and binary data.
-        Ex: Images, PDFs, videos, audio, encrypted data.
-        Used for: Saving profile pictures, documents, Multimedia files, etc.
+    ==  5. BLOB(Binary Large Object)(BLOB, BINARY):    
+            Stores raw data exactly as it is.
+            Used for files and binary data.
+            Ex: Images, PDFs, videos, audio, encrypted data.
+            Used for: Saving profile pictures, documents, Multimedia files, etc.
 
 
 
@@ -207,48 +207,48 @@ Uses one small file to store everything
 ==  Constraints are rules applied to columns or tables to enforce data integrity.
     They ensure that the data stored in the database is valid and consistent.
     
-==  1. PRIMARY KEY:     Uniquely identifies each record in a table.
-        Only one primary key per table.     Automatically NOT NULL.
-        Ex: id INTEGER PRIMARY KEY
-        Used for: Unique identifiers (IDs)
+    ==  1. PRIMARY KEY:     Uniquely identifies each record in a table.
+            Only one primary key per table.     Automatically NOT NULL.
+            Ex: id INTEGER PRIMARY KEY
+            Used for: Unique identifiers (IDs)
 
-==  2. AUTOINCREMENT:   Used with INTEGER PRIMARY KEY to automatically increase value for each new row.
-        Starts from 1 and increases by 1.
-        Ex: id INTEGER PRIMARY KEY AUTOINCREMENT
-        Used for: Auto-incrementing IDs
+    ==  2. AUTOINCREMENT:   Used with INTEGER PRIMARY KEY to automatically increase value for each new row.
+            Starts from 1 and increases by 1.
+            Ex: id INTEGER PRIMARY KEY AUTOINCREMENT
+            Used for: Auto-incrementing IDs
 
-==  3. NOT NULL:    Ensures a column cannot have NULL values.
-        Data must be provided when inserting.
-        Ex: name TEXT NOT NULL
-        Used for: Mandatory fields like Name, Email
+    ==  3. NOT NULL:    Ensures a column cannot have NULL values.
+            Data must be provided when inserting.
+            Ex: name TEXT NOT NULL
+            Used for: Mandatory fields like Name, Email
 
-==  4. UNIQUE:    Ensures all values in a column are unique.
-        Can be applied to one or more columns.
-        Ex: email TEXT UNIQUE
-        Used for: Email, Username, Phone number
-    UNIQUE + NOT NULL:   Combination ensures no duplicate and no empty value.
-        Ex: username TEXT UNIQUE NOT NULL
+    ==  4. UNIQUE:    Ensures all values in a column are unique.
+            Can be applied to one or more columns.
+            Ex: email TEXT UNIQUE
+            Used for: Email, Username, Phone number
+        UNIQUE + NOT NULL:   Combination ensures no duplicate and no empty value.
+            Ex: username TEXT UNIQUE NOT NULL
 
-==  5. DEFAULT:     Provides a default value if none is specified during insert.
-        Ex: status TEXT DEFAULT 'Active'
-        Used for: Default status, counters, flags
+    ==  5. DEFAULT:     Provides a default value if none is specified during insert.
+            Ex: status TEXT DEFAULT 'Active'
+            Used for: Default status, counters, flags
 
-==  6. CHECK:   Ensures column values satisfy a condition.
-        Used to restrict input values.
-        Ex: age INTEGER CHECK(age >= 18)
-        Used for: Age restrictions, valid ranges, custom rules
+    ==  6. CHECK:   Ensures column values satisfy a condition.
+            Used to restrict input values.
+            Ex: age INTEGER CHECK(age >= 18)
+            Used for: Age restrictions, valid ranges, custom rules
 
-==  7. FOREIGN KEY:     Enforces referential integrity between two tables.
-        A column in one table refers to the PRIMARY KEY in another table.
-        Ex: order_id INTEGER,
-            customer_id INTEGER,
-            FOREIGN KEY(customer_id) REFERENCES customer(id)
-        Used for: Linking tables (Orders → Customers)
+    ==  7. FOREIGN KEY:     Enforces referential integrity between two tables.
+            A column in one table refers to the PRIMARY KEY in another table.
+            Ex: order_id INTEGER,
+                customer_id INTEGER,
+                FOREIGN KEY(customer_id) REFERENCES customer(id)
+            Used for: Linking tables (Orders → Customers)
 
-==  8. COMPOSITE KEY:   Primary key that uses more than one column.
-        Ensures unique combination of values.
-        Ex: PRIMARY KEY (student_id, course_id)
-        Used for: Many-to-many relationships
+    ==  8. COMPOSITE KEY:   Primary key that uses more than one column.
+            Ensures unique combination of values.
+            Ex: PRIMARY KEY (student_id, course_id)
+            Used for: Many-to-many relationships
 
 
 
@@ -256,29 +256,29 @@ Uses one small file to store everything
 ==  In databases, relationships define how tables are connected to each other.
     SQLite3 supports three main types of relationships: One-to-One, One-to-Many, and Many-to-Many.
 
-==  1. One-to-One (1:1):    Each row in Table A is linked to exactly one row in Table B, and vice versa.
-        Usually, both tables share the same PRIMARY KEY, or one table has a UNIQUE FOREIGN KEY.
-        Ex: CREATE TABLE person (person_id INTEGER PRIMARY KEY, name TEXT);
-            CREATE TABLE passport (passport_id INTEGER PRIMARY KEY, person_id INTEGER UNIQUE, country TEXT,
-                    FOREIGN KEY(person_id) REFERENCES person(person_id));
-        Explanation:  Each person can have only one passport. `person_id` in `passport` references `person_id` in `person`.
+    ==  1. One-to-One (1:1):    Each row in Table A is linked to exactly one row in Table B, and vice versa.
+            Usually, both tables share the same PRIMARY KEY, or one table has a UNIQUE FOREIGN KEY.
+            Ex: CREATE TABLE person (person_id INTEGER PRIMARY KEY, name TEXT);
+                CREATE TABLE passport (passport_id INTEGER PRIMARY KEY, person_id INTEGER UNIQUE, country TEXT,
+                        FOREIGN KEY(person_id) REFERENCES person(person_id));
+            Explanation:  Each person can have only one passport. `person_id` in `passport` references `person_id` in `person`.
 
-==  2. One-to-Many (1:N):   Each row in Table A can be linked to multiple rows in Table B.
-        Most common relationship in databases.
-        Ex: CREATE TABLE customer (customer_id INTEGER PRIMARY KEY, name TEXT);
-            CREATE TABLE orders (order_id INTEGER PRIMARY KEY, customer_id INTEGER, order_date TEXT, 
-                    FOREIGN KEY(customer_id) REFERENCES customer(customer_id));
-        Explanation:    A customer can place multiple orders, but each order belongs to one customer.
+    ==  2. One-to-Many (1:N):   Each row in Table A can be linked to multiple rows in Table B.
+            Most common relationship in databases.
+            Ex: CREATE TABLE customer (customer_id INTEGER PRIMARY KEY, name TEXT);
+                CREATE TABLE orders (order_id INTEGER PRIMARY KEY, customer_id INTEGER, order_date TEXT, 
+                        FOREIGN KEY(customer_id) REFERENCES customer(customer_id));
+            Explanation:    A customer can place multiple orders, but each order belongs to one customer.
 
-==  3. Many-to-Many (M:N):    Multiple rows in Table A can relate to multiple rows in Table B.
-        Requires a junction table (also called a linking table) to store relationships.
-        Ex: CREATE TABLE student (student_id INTEGER PRIMARY KEY, name TEXT);
-            CREATE TABLE course (course_id INTEGER PRIMARY KEY, course_name TEXT);
-            CREATE TABLE student_course (student_id INTEGER, course_id INTEGER,
-                    PRIMARY KEY(student_id, course_id), FOREIGN KEY(student_id) REFERENCES student(student_id),
-                    FOREIGN KEY(course_id) REFERENCES course(course_id));
-        Explanation: A student can enroll in many courses. A course can have many students.
-             `student_course` is the junction table that links students and courses.
+    ==  3. Many-to-Many (M:N):    Multiple rows in Table A can relate to multiple rows in Table B.
+            Requires a junction table (also called a linking table) to store relationships.
+            Ex: CREATE TABLE student (student_id INTEGER PRIMARY KEY, name TEXT);
+                CREATE TABLE course (course_id INTEGER PRIMARY KEY, course_name TEXT);
+                CREATE TABLE student_course (student_id INTEGER, course_id INTEGER,
+                        PRIMARY KEY(student_id, course_id), FOREIGN KEY(student_id) REFERENCES student(student_id),
+                        FOREIGN KEY(course_id) REFERENCES course(course_id));
+            Explanation: A student can enroll in many courses. A course can have many students.
+                `student_course` is the junction table that links students and courses.
 
 
 
@@ -286,7 +286,7 @@ Uses one small file to store everything
 ==  JOINS are used to combine rows from two tables based on a related column (usually a foreign key).
     Let’s assume two tables:
     student
-        id	name
+        S_id	name
         1	Raj
         2	Priya
         3	Meet
@@ -297,76 +297,81 @@ Uses one small file to store everything
         3	2	        Django
     Here, course.student_id → references → student.id
 
-==  1. INNER JOIN:  INNER JOIN → Only matching rows
-    Only matching rows from both tables
-    If a student has no course → they will NOT appear.
-    Query:
-        SELECT student.name, course.subject FROM student INNER JOIN course ON student.id = course.student_id;
-    Output:
-        name	subject
-        Raj	    Python
-        Raj	    SQL
-        Priya	Django
-    Meet is missing because he has no course.
+    ==  1. INNER JOIN:  INNER JOIN → Only matching rows
+        Only matching rows from both tables
+        If a student has no course → they will NOT appear.
+        Query:
+            SELECT student.name, course.subject FROM student INNER JOIN course ON student.S_id = course.student_id;
+        Output:
+            name	subject
+            Raj	    Python
+            Raj	    SQL
+            Priya	Django
+        Meet is missing because he has no course.
 
-==  2. LEFT JOIN (LEFT OUTER JOIN):     LEFT JOIN → All from LEFT + matching from right
-    All rows from the LEFT table + matching rows from RIGHT table
-    If no match → NULL is shown.
-    Left table = student    Right table = course
-    Query:
-        SELECT student.name, course.subject FROM student LEFT JOIN course ON student.id = course.student_id;
-    Output:
-        name	subject
-        Raj	    Python
-        Raj	    SQL
-        Priya	Django
-        Meet	NULL
+    ==  2. LEFT JOIN (LEFT OUTER JOIN):     LEFT JOIN → All from LEFT + matching from right
+        All rows from the LEFT table + matching rows from RIGHT table
+        If no match → NULL is shown.
+        Left table = student    Right table = course
+        Query:
+            SELECT student.name, course.subject FROM student LEFT JOIN course ON student.S_id = course.student_id;
+        Output:
+            name	subject
+            Raj	    Python
+            Raj	    SQL
+            Priya	Django
+            Meet	NULL
 
-==  3. RIGHT JOIN:  RIGHT JOIN → All from RIGHT + matching from left
-    ❌ SQLite does NOT support RIGHT JOIN directly.
-    But we can simulate it using LEFT JOIN by swapping tables.
-    Simulated Right Join:
-        SELECT student.name, course.subject FROM course LEFT JOIN student ON course.student_id = student.id;
-    Equivalent to:
-        RIGHT JOIN student ON student.id = course.student_id
-    Output: 
+    ==  3. RIGHT JOIN:  RIGHT JOIN → All from RIGHT + matching from left
+        ❌ SQLite does NOT support RIGHT JOIN directly.
+        But we can simulate it using LEFT JOIN by swapping tables.
+        Simulated Right Join:
+            SELECT student.name, course.subject FROM course LEFT JOIN student ON course.student_id = student.S_id;
+        Equivalent to:
+            RIGHT JOIN student ON student.S_id = course.student_id
+        Output: 
+            subject     name
+            Python      Raj
+            SQL         Raj
+            Django      Priya
+        Same as INNER JOIN here because all courses have students.
 
 
-==  4. FULL OUTER JOIN:     FULL JOIN → All rows from both tables
-    ❌ SQLite does not support FULL JOIN directly.
-    But we can simulate it using UNION of left join and right join.
-    Query:  -- LEFT JOIN Union -- RIGHT JOIN (simulated)
-        SELECT student.name, course.subject FROM student LEFT JOIN course ON student.id = course.student_id
-                UNION
-        SELECT student.name, course.subject FROM course LEFT JOIN student ON course.student_id = student.id;
-    Output (full result):
-        name	subject
-        Raj	    Python
-        Raj	    SQL
-        Priya	Django
-        Meet	NULL
-        NULL	Python?
+    ==  4. FULL OUTER JOIN:     FULL JOIN → All rows from both tables
+        ❌ SQLite does not support FULL JOIN directly.
+        But we can simulate it using UNION of left join and right join.
+        Query:  -- LEFT JOIN Union -- RIGHT JOIN (simulated)
+            SELECT student.name, course.subject FROM student LEFT JOIN course ON student.id = course.student_id
+                    UNION
+            SELECT student.name, course.subject FROM course LEFT JOIN student ON course.student_id = student.id;
+        Output (full result):
+            name	subject
+            Raj	    Python
+            Raj	    SQL
+            Priya	Django
+            Meet	NULL
+        FULL JOIN is basically LEFT + RIGHT union. No extra row here because every course has a student.
 
-==  5. CROSS JOIN:  CROSS JOIN → All combinations (A × B). 
-    Returns every combination (Cartesian product)
-    No ON condition needed.
-    If student = 3 rows and course = 3 rows → output = 9 rows.
-    Query:
-        SELECT student.name, course.subject FROM student CROSS JOIN course;
-    Output (sample):
-        name	subject
-        Raj	    Python
-        Raj	    SQL
-        Raj	    Django
-        Priya	Python
-        ...	    ...
-    Used rarely; produces a huge table.
+    ==  5. CROSS JOIN:  CROSS JOIN → All combinations (A × B). Used rarely; produces a huge table.
+        Returns every combination (Cartesian product)
+        No ON condition needed.
+        If student = 3 rows and course = 3 rows → output = 9 rows.
+        Query:
+            SELECT student.name, course.subject FROM student CROSS JOIN course;
+        Output (sample):
+            name	subject
+            Raj	    Python
+            Raj	    SQL
+            Raj	    Django
+            Priya	Python
+            ...	    ...
+        Every student is combined with every course.
 
-==  6. SELF JOIN: (Joining a table with itself)
-    A Self Join is when a table is joined with itself as if it were two different tables.
-    Used when:  Rows in the same table have a relationship with each other
-    Example: employee → manager, categories → subcategories, friends list, prerequisites
-    We use aliases (A, B) to treat the same table as two different tables.
+    ==  6. SELF JOIN: (Joining a table with itself)
+        A Self Join is when a table is joined with itself as if it were two different tables.
+        Used when:  Rows in the same table have a relationship with each other
+        Example: employee → manager, categories → subcategories, friends list, prerequisites
+        We use aliases (A, B) to treat the same table as two different tables.
 
 
 
@@ -534,3 +539,94 @@ Uses one small file to store everything
 
 ==  Delete (Drop) a View    *********DROP VIEW IF EXISTS view_student_basic;************
 
+
+
+
+** What is a Trigger in SQLite3?
+==  A trigger is a database object that is automatically executed or fired when certain events happen on a table.
+    
+    A trigger is like a special rule that automatically happens in the database when something changes 
+    in a table (like INSERT, UPDATE, or DELETE).
+    Think of it like an alarm or action that fires automatically when an event occurs.
+
+==  Why We Use Triggers?
+    To automate tasks in the database.
+    To maintain data integrity (like keeping history or logs).
+    To enforce business rules automatically.
+    Example:
+    When a product is added to ORDERS, automatically decrease PRODUCTS stock.
+    When a user is deleted, log that user in USER_LOGS.
+
+==  3 Types of Triggers in SQLite3: A trigger is a database “robot” that automatically performs an action 
+    when something happens in a table.
+    BEFORE → runs before the event:-    Executes before the event happens.
+        Used for validation or modifying data before insertion/update.
+    AFTER → runs after the event:-     Executes after the event happens.
+        Used for logging, updating other tables, or calculations.
+    INSTEAD OF → runs instead of the event:-    Executes instead of the event.
+        Used mainly for views, because you can’t directly insert into a view.
+
+==  Advantages of Triggers
+    Automates repetitive tasks → no need to write manual code every time.
+    Maintains data consistency and integrity.
+    Logs activities automatically → good for audit.
+    Enforces business rules at the database level.
+
+==  Disadvantages of Triggers
+    Can make debugging difficult → actions happen automatically.
+    May slow down database operations if triggers are complex.
+    Too many triggers → can be confusing to manage.
+
+==  How to Create a Trigger in SQLite3
+    Syntax:
+        CREATE TRIGGER trigger_name
+            {BEFORE | AFTER | INSTEAD OF} {INSERT | UPDATE | DELETE}
+            ON table_name
+        BEGIN
+            -- SQL statements to execute automatically
+        END;
+
+==  Where Do We Use Triggers?
+    Logging and auditing user actions.
+    Automatically updating related tables (like stock in your DMart project).
+    Enforcing business rules (like minimum stock or unique constraints).
+    Maintaining history tables (like order history).
+    Automatically calculating totals or summaries.
+
+
+
+**  What are ACID Properties?
+==  ACID is a set of four rules that every good database transaction must follow to keep data safe, 
+    consistent, and reliable. These properties ensure that no matter what happens (errors, power off, 
+    crash), your database stays correct.
+     
+==  ACID stands for:
+        
+    ==  A – Atomicity:   A transaction must either complete fully or not happen at all.
+        Like:   If any step fails → roll back everything.
+        Example:    When buying something online:
+                    Money deducted from wallet
+                    Order added to orders table
+                    If "step 2" fails, the money should NOT be deducted.
+                Database will cancel everything → like nothing happened.
+
+    ==  C – Consistency:    A transaction must keep the database in a valid state.
+        Rules must never be broken.
+        Example:    Stock cannot go below 0
+                    Email must be unique
+                    Foreign key must match existing ID
+                    If the action tries to break a rule → SQLite stops the transaction.
+                Ensures no bad or incorrect data enters the database.
+
+    ==  I – Isolation:     Multiple transactions happening at the same time should NOT affect each other.
+        Like:   Two people buying the last product at the same time
+                Two users updating the same record simultaneously
+                The database keeps transactions separated so data does not get mixed or corrupted.
+            It feels like each transaction runs alone, even when many run together.
+
+    ==  D – Durability:     Once a transaction is saved (COMMIT), the data is permanent, even if power goes off.
+        Even if:    System crashes
+                    App closes
+                    Power failure
+                The committed data stays safe.
+                SQLite writes changes to disk safely so data never disappears.

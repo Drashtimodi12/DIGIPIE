@@ -36,8 +36,7 @@ finally:
     """)
     
     # Step 3: Insert new data into the employee table
-    # query = "insert into employee (NAME, AGE, MARKS) VALUES ('SEJAL', 28, 9)"
-    # cursor.execute(query)
+    # cursor.execute("INSERT INTO EMPLOYEE (NAME, AGE, MARKS) VALUES ('SEJAL', 28, 9)")
     # conn.commit()
     # print("Data inserted successfully.")
 

@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect('View.db')
+con = sqlite3.connect('03_View.db')
 cur = con.cursor()
 
 cur.execute("PRAGMA foreign_keys = ON")
