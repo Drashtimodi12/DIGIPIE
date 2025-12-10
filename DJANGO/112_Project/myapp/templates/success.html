@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="{% static 'css1/styles.css' %}">
+</head>
+<body>
+    <script src="{% static 'js1/app.js' %}"></script>
+    <b><h2>Form Submited Successfully!</h2><hr></b>
+
+    <p><b>Name: </b> {{name}}</p>
+    <p><b>Email: </b> {{email}}</p>
+    <p><b>Password: </b> {{password}}</p>
+    <br><br>
+    <a href="{% url 'form'%}">Registration Form</a>
+    <h1></h1>
+
+</body>
+</html>
