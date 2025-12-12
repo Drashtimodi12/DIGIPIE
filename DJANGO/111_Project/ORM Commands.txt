@@ -1,0 +1,244 @@
+PS E:\DIGIPIE\DJANGO\111_PROJECT> py .\manage.py shell    
+7 objects imported automatically (use -v 2 for details).
+
+Python 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 9.4.0 -- An enhanced Interactive Python. Type '?' for help.
+Tip: Use `F2` or %edit with no arguments to open an empty editor with a temporary file.
+Ctrl click to launch VS Code Native REPL
+
+In [1]: from myapp.models import *
+
+In [2]: Student.objects.all()
+Out[2]: <QuerySet [<Student: Drashti>, <Student: Roze>, <Student: Daizy Modi>, <Student: Viral>, <Student: Atufa>, <Student: Salaman>, <Student: Himanshi>, <Student: Daizy Modi>]>
+
+In [3]: st = Student(name="Sahil", age=25)
+
+In [4]: st.save()
+
+In [5]: Student.objects.all()
+Out[5]: <QuerySet [<Student: Drashti>, <Student: Roze>, <Student: Daizy Modi>, <Student: Viral>, <Student: Atufa>, <Student: Salaman>, <Student: Himanshi>, <Student: Daizy Modi>, <Student: Sahil>]>
+
+            In [6]: Student.objects.all()Student.objects.create(name='Jenil', age=20)
+            Cell In[6], line 1
+                Student.objects.all()Student.objects.create(name='Jenil', age=20)
+                                    ^
+            SyntaxError: invalid syntax
+
+
+In [7]: Student.objects.create(name='Jenil', age=20)
+Out[7]: <Student: Jenil>
+
+In [8]: st = Student.objects.get(id=2)
+In [9]: st.name='Roze'
+In [10]: st.age=21
+In [11]: st.save()
+
+In [12]: st = Student.objects.get(id=6)
+In [13]: st.delete()
+Out[13]: (1, {'myapp.Student': 1})
+
+In [14]: Student.objects.all()
+Out[14]: <QuerySet [<Student: Drashti>, <Student: Roze>, <Student: Daizy Modi>, <Student: Viral>, <Student: Atufa>, <Student: Himanshi>, <Student: Daizy Modi>, <Student: Sahil>, <Student: Jenil>]>
+
+In [15]: Student.objects.filter(age=22)
+Out[15]: <QuerySet []>
+
+In [16]: Student.objects.count()
+Out[16]: 9
+
+In [17]: Student.objects.filter(age=22).exists()
+Out[17]: False
+
+# in name searche 'a' it also allow 'A'
+In [18]: Student.objects.filter(name__icontains="a")
+Out[18]: <QuerySet [<Student: Drashti>, <Student: Daizy Modi>, <Student: Viral>, <Student: Atufa>, <Student: Himanshi>, <Student: Daizy Modi>, <Student: Sahil>]>
+
+# in name search 'ra' it allso allow 'RA', 'rA', 'Ra'
+In [20]: Student.objects.filter(name__icontains="ra")
+Out[20]: <QuerySet [<Student: Drashti>, <Student: Viral>]>
+
+#name startswith 'D'
+In [21]: Student.objects.filter(name__startswith="D")
+Out[21]: <QuerySet [<Student: Drashti>, <Student: Daizy Modi>, <Student: Daizy Modi>]>
+
+# name endswith 'i'
+In [22]: Student.objects.filter(name__iendswith="i")
+Out[22]: <QuerySet [<Student: Drashti>, <Student: Daizy Modi>, <Student: Himanshi>, <Student: Daizy Modi>]>
+
+
+# age check between 18 to 25 all
+In [23]: Student.objects.filter(age__range=(18, 25))
+Out[23]: <QuerySet [<Student: Roze>, <Student: Daizy Modi>, <Student: Daizy Modi>, <Student: Sahil>, <Student: Jenil>]>
+
+# age check 18, 20, and 25
+In [24]: Student.objects.filter(age__in=[18, 20, 25])
+Out[24]: <QuerySet [<Student: Daizy Modi>, <Student: Daizy Modi>, <Student: Sahil>, <Student: Jenil>]>
+
+In [43]: Student.objects.filter(age__gt=18)
+Out[43]: <QuerySet [<Student: Roze>, <Student: Atufa>, <Student: Himanshi>, <Student: Sahil>, <Student: Jenil>]>
+
+In [44]: Student.objects.filter(age__gte=18)
+Out[44]: <QuerySet [<Student: Roze>, <Student: Daizy Modi>, <Student: Atufa>, <Student: Himanshi>, <Student: Daizy Modi>, <Student: Sahil>, 
+<Student: Jenil>]>
+
+In [45]: Student.objects.filter(age__lt=18)
+Out[45]: <QuerySet [<Student: Drashti>, <Student: Viral>]>
+
+In [46]: Student.objects.filter(age__lte=18)
+Out[46]: <QuerySet [<Student: Drashti>, <Student: Daizy Modi>, <Student: Viral>, <Student: Daizy Modi>]>
+
+# name in ascending
+In [25]: Student.objects.order_by('name')
+Out[25]: <QuerySet [<Student: Atufa>, <Student: Daizy Modi>, <Student: Daizy Modi>, <Student: Drashti>, <Student: Himanshi>, <Student: Jenil>, <Student: Roze>, <Student: Sahil>, <Student: Viral>]>
+
+# name in descending
+In [26]: Student.objects.order_by('-name')
+Out[26]: <QuerySet [<Student: Viral>, <Student: Sahil>, <Student: Roze>, <Student: Jenil>, <Student: Himanshi>, <Student: Drashti>, <Student: Daizy Modi>, <Student: Daizy Modi>, <Student: Atufa>]>
+
+# exclude give not matching data
+In [29]: Student.objects.exclude(age=18).exclude(age=20).exclude(age=25)
+Out[29]: <QuerySet [<Student: Drashti>, <Student: Roze>, <Student: Viral>, <Student: Atufa>, <Student: Himanshi>]>
+
+In [30]: Student.objects.values('name', 'age')
+Out[30]: <QuerySet [{'name': 'Drashti', 'age': 10}, {'name': 'Roze', 'age': 21}, {'name': 'Daizy Modi', 'age': 18}, {'name': 'Viral', 'age': 11}, {'name': 'Atufa', 'age': 26}, {'name': 'Himanshi', 'age': 33}, {'name': 'Daizy Modi', 'age': 18}, {'name': 'Sahil', 'age': 25}, {'name': 'Jenil', 'age': 20}]>
+
+In [31]: Student.objects.values_list('name', 'age')
+Out[31]: <QuerySet [('Drashti', 10), ('Roze', 21), ('Daizy Modi', 18), ('Viral', 11), ('Atufa', 26), ('Himanshi', 33), ('Daizy Modi', 18), ('Sahil', 25), ('Jenil', 20)]>
+
+In [32]: Student.objects.values_list('name', flat=True)
+Out[32]: <QuerySet ['Drashti', 'Roze', 'Daizy Modi', 'Viral', 'Atufa', 'Himanshi', 'Daizy Modi', 'Sahil', 'Jenil']>
+
+In [33]: Student.objects.first()
+Out[33]: <Student: Drashti>
+
+In [34]: Student.objects.last()
+Out[34]: <Student: Jenil>
+
+
+
+In [35]: from django.db.models import Avg, Max, Min, Sum, Count
+
+In [36]: Student.objects.aggregate(Avg('age'))
+Out[36]: {'age__avg': 20.22222222222222}
+
+In [37]: Student.objects.aggregate(Max('age'))
+Out[37]: {'age__max': 33}
+
+In [38]: Student.objects.aggregate(Min('age'))
+Out[38]: {'age__min': 10}
+
+In [39]: Student.objects.aggregate(Count('id'))
+Out[39]: {'id__count': 9}
+
+In [40]: Student.objects.aggregate(Sum('age'))
+Out[40]: {'age__sum': 182}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PS E:\DIGIPIE\DJANGO\111_PROJECT\myapp> py .\data.py
+
+Student Data:
+
+Rhonda Sanders mle@example.com 0526481549 26
+Krista Coleman bjohnston@example.net 0981823877 20
+Diana Williams jmorrison@example.org 5821628713 28
+Caitlin Molina susan14@example.net 2320730705 19
+Nicholas Nguyen christine72@example.com 5607160348 27
+Jeremy Deleon hphelps@example.org 6323480438 22
+Samantha Stephens fhernandez@example.com 1188300578 30
+Erik Haynes vincent48@example.com 0859408756 30
+Travis Miller joanne11@example.net 0320851184 25
+Caitlin Oconnor sextonsteven@example.net 7923271596 18
+
+Christopher Allen Marketing gellis@example.net 1043555316 33
+Donna Gonzalez Marketing sstout@example.org 1410593442 35
+Mikayla Green Finance martinezalexander@example.net 0704059550 49
+Jonathan Robinson IT denise29@example.com 1911676846 36
+Dr. Kevin Phillips Finance vincentrobinson@example.com 1017253360 22
+Joy Nguyen Marketing fitzpatrickjohn@example.org 7515079701 48
+Nicole Hancock IT collinsvalerie@example.org 8460132679 29
+Christine Olson Marketing jonesjohn@example.com 0557869952 48
+Lori Nelson Finance valenzuelabarry@example.com 4619226723 44
+Edward Melendez IT vaughndeborah@example.org 5598102279 40
+
+
+
+
+
+
+
+
+PS E:\DIGIPIE\DJANGO\111_PROJECT> py .\manage.py shell
+8 objects imported automatically (use -v 2 for details).
+
+Python 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 9.4.0 -- An enhanced Interactive Python. Type '?' for help.
+Tip: You can use `files = !ls *.png`
+Ctrl click to launch VS Code Native REPL
+
+In [1]: from myapp import data
+
+Student Data:
+
+Michael Chase khood@example.org 0865782008 28
+Krystal Love codybrown@example.org 4370381081 25
+Steven Tucker timothyserrano@example.com 0572037023 23
+Christopher Bright joannbrown@example.net 2241508891 20
+Lauren Castillo DDS aallen@example.org 3689703799 24
+Tamara Salazar vryan@example.com 1559127609 18
+Joshua Thompson robertanderson@example.org 4026275943 26
+Emma Gonzalez rebeccacooper@example.com 5300320000 19
+Terry Allen mckenzierodriguez@example.net 4568691439 20
+Heather Harris fsims@example.net 8710840019 24
+Paul Christensen ucastillo@example.com 2431367922 21
+Joy Smith davidlane@example.com 8741859861 20
+Anne Miller zachary37@example.org 7437680437 30
+Hunter Page nhall@example.org 5191988324 29
+Kristina Lee matthewmorgan@example.com 6747160040 25
+Joseph Smith adam39@example.org 1324366229 30
+Amanda Rush john23@example.org 8779115451 30
+Cole Gray guzmanstephanie@example.net 8112440773 25
+Kim Brown greeneaustin@example.org 0353478639 29
+Brandon Lee wwalters@example.org 9201773625 20
+
+Employee Data:
+
+Dennis Williams HR toddthomas@example.org 3731960036 46
+Brian Gentry IT dianamcdonald@example.org 5185371888 35
+Michael Hendricks Finance millerbrittney@example.org 9026069542 36
+Alexis Colon HR christinereed@example.net 2310104638 40
+Karen Johnson Finance phillip29@example.org 1779945904 41
+Daniel Hall IT hallwendy@example.com 5525138208 30
+Kelly Becker Finance vperez@example.org 7875439504 35
+Nicholas Hicks Marketing tonilopez@example.net 6640881996 48
+Ruth Simpson IT carrollmatthew@example.net 9601058913 37
+Kelly Santos IT porterjessica@example.net 2566830120 47
+Erica Landry HR lopezalexander@example.org 1137254454 47
+Mark Mills Marketing staylor@example.com 7638391833 25
+Andre Fernandez IT timothylane@example.com 9055217325 36
+Larry Patterson IT kclay@example.net 4909530100 23
+Robin Rivera HR xnelson@example.net 4230032452 34
+Douglas Hopkins HR robinrios@example.com 4547234755 30
+Alexandra Powell Finance scott82@example.org 4100498795 40
+Molly Brooks Finance charlesholt@example.org 5192269269 49
+John Durham Finance stevenmartin@example.net 0398588024 46
+Valerie Mejia Finance richardsosa@example.net 5427635122 25
+
+In [2]: exit()

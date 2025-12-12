@@ -4,5 +4,10 @@ from myapp.models import *
 # Register your models here.
 
 class StudentDisplay(admin.ModelAdmin):
-    list_display = ("name", "age")   
+    list_display = ("username", "email", "phone", "age")
 admin.site.register(Student, StudentDisplay)
+
+
+class EmployeeDisplay(admin.ModelAdmin):
+    list_display = ("name", "department", "email", "phone", "age")
+admin.site.register(Employee, EmployeeDisplay)

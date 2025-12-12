@@ -1,0 +1,47 @@
+/* style.css */
+
+/* Reset some default styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Logo styling */
+img {
+    display: block;
+    margin: 20px auto;
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+}
+
+/* Navigation links */
+a {
+    text-decoration: none;
+    color: #007BFF;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+a:hover {
+    margin: 20px auto;
+    color: #0056b3;
+}
+
+/* Content box styling */
+.content-box {
+    background-color: #fff;
+    width: 80%;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Add some spacing for paragraphs inside content box */
+.content-box p {
+    line-height: 1.6;
+}

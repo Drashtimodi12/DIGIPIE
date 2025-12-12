@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TOPS{% endblock title %}</title>
+    <!-- <title>{{title}}</title> -->
+
+    <link rel="stylesheet" href="{% static 'BOOK_AUTHOR_APP/css/style.css' %}">
+    <!-- <link rel="stylesheet" href="static/BOOK_AUTHOR_APP/css/style.css"> -->
+
+    <script src="{% static 'BOOK_AUTHOR_APP/js/alert.js' %}"></script>
+    <!-- <script src="static/BOOK_AUTHOR_APP/js/alert.js"></script> -->
+
+</head>
+<body>
+
+    <img src="{% static 'BOOK_AUTHOR_APP/img/LOGO.png' %}" alt="">
+    <!-- <img src="static/BOOK_AUTHOR_APP/img/LOGO.png" alt="Logo" width="200" height="200"> -->
+
+    <br><br>
+    <a href="{% url 'about' %}"><b>About</b></a> |
+    <a href="{% url 'home' %}"><b>Home</b></a> |
+    <a href="{% url 'contact' %}"><b>Contact</b></a> 
+    
+    <div class="content-box">
+        {% block 'body' %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
