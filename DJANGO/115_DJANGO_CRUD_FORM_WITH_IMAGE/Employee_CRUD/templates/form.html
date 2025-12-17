@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employye Form</title>
+</head>
+<body>
+
+    <br>
+    <center>
+    <h1>EMPLOYEE REGISTRATION FORM</h1>
+    <br>
+    <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ uemp.id }}">
+
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="{{ uemp.name }}" placeholder="Enter your name" required>
+        <br><br>
+        
+        <label for="dep">Department</label>
+        <input type="text" name="department" id="dep" value="{{ uemp.department }}" placeholder="Enter department" required>
+        <br><br>
+
+        <label for="age">Age</label>
+        <input type="number" name="age" id="age" value="{{ uemp.age }}" placeholder="Enter age" required>
+        <br><br>
+
+        <label for="phone">Phone</label>
+        <input type="text" name="phone" id="phone" value="{{ uemp.phone }}" placeholder="Enter your contact number" required>
+        <br><br>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="{{ uemp.email }}" placeholder="Enter correct email" required>
+        <br><br>
+
+        <label for="img">Image</label>
+                <input type="file" name="file">
+        <br><br>
+
+        <button type="submit">
+            {% if uemp %} Update {% else %} Submit {% endif %}
+        </button>
+    </form>
+    </center>
+
+    <br>
+    <br>
+    <h1>All EMPLOYEE DATA</h1>
+    <table border="1" cellpadding="6">
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Department</td>
+            <td>Age</td>
+            <td>Phone</td>
+            <td>Email</td>
+            <td>Employee Image</td>
+            <td colspan="2">Action</td>
+        </tr>
+
+        {% for e in emp %}
+        <tr>
+            <td>{{ e.id }}</td>
+            <td>{{ e.name }}</td>
+            <td>{{ e.department }}</td>
+            <td>{{ e.age }}</td>
+            <td>{{ e.phone }}</td>
+            <td>{{ e.email }}</td>
+            <td>
+                {% if e.image %}
+                    <img src="{{ e.image.url }}" width="100" height="100">
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+            <td><a href="{% url 'update' %}?empid={{ e.id }}">Update</a></td>
+            <td><a href="{% url 'delete' %}?empid={{ e.id }}" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

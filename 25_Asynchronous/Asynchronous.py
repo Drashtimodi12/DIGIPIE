@@ -1,6 +1,6 @@
 """
 Asynchronous:- this execution lets multiple tasks run without blocking each other by using non-blocking I/O and
-     an event loop, making programs faster and more efficient for operations that involve waiting.
+    an event loop, making programs faster and more efficient for operations that involve waiting.
 
 Ex: “Start a task → donot wait for it → move to next task → come back when the first task is done.”
 

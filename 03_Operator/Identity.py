@@ -14,3 +14,13 @@ y = x
 
 print("x == y :", x == y)     
 print("x is y :", x is y)    
+
+
+# OP:
+# Using == : True
+# Using is operator:  False  
+
+# ===========================
+
+# x == y : True
+# x is y : True
