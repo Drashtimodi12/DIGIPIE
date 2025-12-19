@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- FIRST SEARCH (HTML response) -->
+    <script>
+        const search = (data)=>{
+            // alert(data)
+
+            // rt - response text
+            $.get("search", {data}, function(rt){
+                // alert(rt.data) 
+
+                $("#sdata").html(rt)
+            })
+        }
+    </script>
+
+    <!-- SECOND FILTER (JSON response) -->
+    <script>
+        const filter = (data)=>{
+            
+            $.get("filter", {data}, function(rt){
+                
+                var rows = ""
+                rows += "<ul>"
+                rt.data.map(ele=>{
+                    // console.log(ele.name);
+                    rows += "<li>"+ele.name+"</li>"
+                })
+                rows += "</ul>"
+                
+                $("#fdata").html(rows)
+            })
+        }
+    </script>
+
+    <!-- COUNTRY / STATE / CITY -->
+    <script>
+        $(document).ready(function(){
+            // alert("ok")
+            getcountries()
+            
+        })
+
+        // SELECT Country
+        const getcountries = () =>{
+            $.get("countries",{}, function(rt){
+                // alert(rt.data)
+
+                var options = "<option value=''>---Selecte Country---</option>"
+                rt.data.map(ele=>{
+                    options += "<option value="+ele.id+">"+ele.name+"</option>"
+                })
+                $("#country").html(options)
+            })
+        }
+    
+
+    // SELECT State
+        const getstates = (cid) =>{
+            // alert(cid)
+            $.get("states",{cid}, function(rt){
+                // alert(rt.data)
+
+                var options = "<option value=''>---Selecte State---</option>"
+                rt.data.map(ele=>{
+                    options += "<option value="+ele.id+">"+ele.name+"</option>"
+                })
+                $("#state").html(options)
+            })
+        }
+    
+
+    // SELECT City 
+        const getcities = (sid) =>{
+            // alert(sid)
+            $.get("cities",{sid}, function(rt){
+                // alert(rt.data)
+
+                var options = "<option value=''>---Selecte City---</option>"
+                rt.data.map(ele=>{
+                    options += "<option value="+ele.id+">"+ele.name+"</option>"
+                })
+                $("#city").html(options)
+            })
+        }
+    </script>
+
+    
+</head>
+<body>
+    <br>
+    <h1>Ajax Project</h1>
+    <hr><br>
+    <label for="search">Search : </label>
+    <input type="text" onkeyup="search(value)">
+    <div id="sdata"></div>
+
+    <br>
+    <hr><hr>
+    <br>
+
+    <label for="filter">Filter : </label>
+    <input type="text" onkeyup="filter(value)">
+    <div id="fdata"></div>
+
+    <br>
+    <hr><hr>
+    <br>
+
+    <select name="country" id="country" onchange="getstates(value)">
+        <option value="0">---Selecte Country---</option>
+    </select>
+    
+    <select name="state" id="state" onchange="getcities(value)">
+        <option value="0">---Selecte State---</option>
+    </select>
+    
+    <select name="city" id="city">
+        <option value="0">---Selecte City---</option>
+    </select>
+
+    <br><br>
+    <!-- crud app home page url -->
+
+    <h3><a href="{% url 'home' %}">CRUD APP</a></h3>
+    
+</body>
+</html>

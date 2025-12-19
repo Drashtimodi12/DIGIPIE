@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function(){
+            alert("ok")
+        })
+
+        const add_data = () => {
+            var uname = $("#uname").val()
+            var email = $("#email").val()
+            var age = $("#age").val()
+
+            console.log(uname,email,age)
+
+            $.post("add_data", {uname, email, age}, function(rt) {
+                alert(rt)
+            })
+
+            $.post("add_data", {uname, email, age}, function(rt) {
+                alert(rt)
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-5 card p-3 mt-3">
+                <h2>Student Registration</h2>
+                <hr>
+                {% csrf_token %}
+                <input type="hidden" id="Ha">
+                <div class="formgroup">
+                    <label for="uname">User Name</label>
+                    <input type="text" name="uname" id="uname" class="form-control">
+                </div>
+                <div class="formgroup">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                </div>
+                <div class="formgroup">
+                    <label for="age">Age</label>
+                    <input type="number" name="age" id="age" class="form-control">
+                </div>
+                <br><br>
+                <button class="btn btn-success" id="smbtn" onclick="add_data()">Submit</button>
+            </div>
+
+            <div class="col-1"></div>
+
+
+            <div class="col-6 card p-3 mt-3">
+
+                <h2>Student Details</h2>
+                <hr>
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
