@@ -1,6 +1,6 @@
 from django.urls import path
 from myapp.views import *
-from crudapp.views import *
+
 urlpatterns = [
     path('', index, name='index'),
     path('search', search, name='search'),

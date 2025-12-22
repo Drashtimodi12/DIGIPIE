@@ -13,26 +13,185 @@
         crossorigin="anonymous"></script>
 
     <script>
+// This function runs automatically when page is fully loaded
         $(document).ready(function(){
-            alert("ok")
+            // alert("ok")
+            $("#upbtn").hide()
+            loadData()      // Load student data when page opens
         })
 
+
+
+// Function to load student data from database using AJAX GET
+        const loadData = () => {
+            $.get("loaddata", {}, function(rt){
+                // alert(rt.data)
+
+                var rows = ""           // Empty string to store table rows
+
+                // Loop through each student record
+                rt.data.map(ele=>{
+                    rows += 
+                        "<tr>" +
+                            "<td>" + ele.id + "</td>" +
+                            "<td>" + ele.username + "</td>" +
+                            "<td>" + ele.email + "</td>" +
+                            "<td>" + ele.age + "</td>" +
+                            // Delete button
+                            "<td>" +
+                                "<button onclick='deletedata(" + ele.id + ")' class='btn btn-danger btn-sm'>" +
+                                    "Delete" +
+                                "</button>" +
+                            "</td>" +
+
+                            // Update button
+                            "<td>" +
+                                "<button onclick='editdata(" + ele.id + ", `" + ele.username + "`, `" + ele.email + "`, " + ele.age + ")' class='btn btn-primary btn-sm'>" +
+                                    "Update" +
+                                "</button>" +
+                            "</td>" +
+                        "</tr>"
+                })
+
+                // alert(rows)
+
+                // Insert generated rows into table body
+                $("#tdata").html(rows)
+            })
+        }
+
+        
+
+
+// Function to delete student data using AJAX GET
+        const deletedata = (sid)=>
+        {
+            $.get("deletedata",{sid},function(rt){
+                alert(rt)
+                loadData()
+            })
+        }
+
+
+
+
+
+        const editdata = (sid) => {
+            $.get("databyid", {sid}, function(rt){
+                // alert(rt.data[0].id)
+                $("#id").val(rt.data[0].id)
+                $("#uname").val(rt.data[0].username)
+                $("#email").val(rt.data[0].email)
+                $("#age").val(rt.data[0].age)
+
+                $("#upbtn").show()
+                $("#smbtn").hide()
+            })
+        }
+
+
+
+
+
+// Function to add new student data using AJAX POST
         const add_data = () => {
+            // Get input values
             var uname = $("#uname").val()
             var email = $("#email").val()
             var age = $("#age").val()
 
-            console.log(uname,email,age)
+            // Get CSRF token (required for Django POST request)
+            var csrfmiddlewaretoken=document.getElementsByName("csrfmiddlewaretoken")[0].value
+            // alert(csrfmiddlewaretoken)
 
-            $.post("add_data", {uname, email, age}, function(rt) {
+            // Send data to Django using POST request
+            $.post("add_data", {csrfmiddlewaretoken,uname, email, age}, function(rt) {
+                // Show success message
                 alert(rt)
+                // Clear input fields after successful insert
+                $("#uname").val("")
+                $("#email").val("")
+                $("#age").val("")
+
+                // Reload table data
+                loadData()
+            })
+        
+        }
+        
+
+// Function to add new student data using AJAX POST
+        const updatedata = () => {
+            // Get input values
+            var id = $("#id").val()
+            var uname = $("#uname").val()
+            var email = $("#email").val()
+            var age = $("#age").val()
+
+            // Get CSRF token (required for Django POST request)
+            var csrfmiddlewaretoken=document.getElementsByName("csrfmiddlewaretoken")[0].value
+            // alert(csrfmiddlewaretoken)
+
+            // Send data to Django using POST request
+            $.post("updatedata", {csrfmiddlewaretoken,id,uname, email, age}, function(rt) {
+                // Show success message
+                alert(rt)
+                // Clear input fields after successful insert
+                $("#id").val("")
+                $("#uname").val("")
+                $("#email").val("")
+                $("#age").val("")
+
+                // Reload table data
+                loadData()
+
+                $("#upbtn").hide()
+                $("#smbtn").show()
             })
 
-            $.post("add_data", {uname, email, age}, function(rt) {
-                alert(rt)
+
+        }
+
+
+
+        const searchdata = (value) => {
+        $.get("searchdata", {value}, function(rt){
+                // alert(rt.data)
+
+                var rows = ""           // Empty string to store table rows
+
+                // Loop through each student record
+                rt.data.map(ele=>{
+                    rows += 
+                        "<tr>" +
+                            "<td>" + ele.id + "</td>" +
+                            "<td>" + ele.username + "</td>" +
+                            "<td>" + ele.email + "</td>" +
+                            "<td>" + ele.age + "</td>" +
+                            // Delete button
+                            "<td>" +
+                                "<button onclick='deletedata(" + ele.id + ")' class='btn btn-danger btn-sm'>" +
+                                    "Delete" +
+                                "</button>" +
+                            "</td>" +
+
+                            // Update button
+                            "<td>" +
+                                "<button onclick='editdata(" + ele.id + ", `" + ele.username + "`, `" + ele.email + "`, " + ele.age + ")' class='btn btn-primary btn-sm'>" +
+                                    "Update" +
+                                "</button>" +
+                            "</td>" +
+                        "</tr>"
+                })
+
+                // alert(rows)
+
+                // Insert generated rows into table body
+                $("#tdata").html(rows)
             })
         }
     </script>
+
 </head>
 <body>
     <div class="container">
@@ -41,7 +200,9 @@
                 <h2>Student Registration</h2>
                 <hr>
                 {% csrf_token %}
-                <input type="hidden" id="Ha">
+
+                <input type="hidden" id="id">
+
                 <div class="formgroup">
                     <label for="uname">User Name</label>
                     <input type="text" name="uname" id="uname" class="form-control">
@@ -54,8 +215,10 @@
                     <label for="age">Age</label>
                     <input type="number" name="age" id="age" class="form-control">
                 </div>
-                <br><br>
+                <br>
                 <button class="btn btn-success" id="smbtn" onclick="add_data()">Submit</button>
+                <br>
+                <button class="btn btn-success" id="upbtn" onclick="updatedata()">Update</button>
             </div>
 
             <div class="col-1"></div>
@@ -65,15 +228,19 @@
 
                 <h2>Student Details</h2>
                 <hr>
+                <input type="text" id="search" class="form-control" placeholder="Search..." onkeyup="searchdata(value)">
                 <table class="table">
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Age</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                <tbody id="tdata"></tbody>
                 </table>
-
             </div>
         </div>
     </div>
