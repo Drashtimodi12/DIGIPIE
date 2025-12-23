@@ -12,7 +12,7 @@ STEP 3:- Create Virtual Environment with name
 	:- Delete the old virtual environment:-		Remove-Item -Recurse -Force .\myenv
 
 STEP 4:- Activate the Virtual Environment
-        .\myenv\Scripts\Activate
+        .\myenv\Scripts\Activate.ps1
 
 STEP 5:- Install Django
 	pip install django djangorestframework djangorestframework-simplejwt pillow faker mysqlclient	/ 
@@ -122,6 +122,9 @@ SIMPLE_JWT =
 STEP 10:- Views.py For Authentication django rest framework
 	views.py -> api secure karva mate
 	from django.http import HttpResponse
+	from rest_framework.response import Response
+	from rest_framework.decorators import api_view
+
 	from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 	from rest_framework.permissions import IsAuthenticated						OR
 	from rest_framework_simplejwt.authentication import JWTAuthentication
