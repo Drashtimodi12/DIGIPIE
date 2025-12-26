@@ -1,0 +1,150 @@
+================================== Token Authentication ==================================
+************************myenv************************
+pip install djangorestframework
+pip install djangorestframework-simplejwt
+
+
+
+************************Settings.py************************
+    INSTALLED_APPS = [
+        ...
+        #---------------------- djangorestframework ----------------------(https://www.django-rest-framework.org/api-guide/authentication/)
+        'rest_framework',
+        'rest_framework.authtoken',
+
+        #---------------------- djangorestframework-simplejwt ----------------------(https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
+        'rest_framework_simplejwt',
+        'API_Company',
+    ]
+
+
+    REST_FRAMEWORK = {
+        # Main configuration dictionary for Django REST Framework
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+
+#---------------------- djangorestframework ----------------------(https://www.django-rest-framework.org/api-guide/authentication/)
+            # Allows authentication using username and password via HTTP Basic Auth
+            'rest_framework.authentication.BasicAuthentication',
+            
+            # Uses Django session login (works with Django admin and browser login)
+            'rest_framework.authentication.SessionAuthentication',
+
+#---------------------- djangorestframework-simplejwt ----------------------(https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
+            # Enables JWT (JSON Web Token) based authentication for securing APIs    
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+   
+        ]
+    }
+
+
+    SIMPLE_JWT = {(https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html) -> getting started -> Settings}
+
+************************views.py************************
+
+#---------------------- djangorestframework ----------------------(https://www.django-rest-framework.org/api-guide/authentication/)
+    # Handles user authentication using sessions and basic auth
+    from rest_framework.authentication import SessionAuthentication, BasicAuthentication  
+
+    # Allows access only to authenticated (logged-in) users
+    from rest_framework.permissions import IsAuthenticated
+    
+    class departmentAPI(APIView):
+        # ------------------------
+        # Authentication
+        # ------------------------
+        authentication_classes = [SessionAuthentication, BasicAuthentication]
+        # Defines how the user will be authenticated (session login or basic auth)
+
+        permission_classes = [IsAuthenticated]
+        # Allows access only to authenticated (logged-in) users
+
+        def get(self, request):
+            try:
+                alldep = Department.objects.all()
+                ser = DepartmentSerializer(alldep, many=True)
+                return Response({"department":ser.data})
+            except Exception as e:
+                return Response({"errors":str(e), "message":"Something wents Wrong!"})
+
+#---------------------- djangorestframework-simplejwt ----------------------(https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
+    # Imports JWT authentication to verify users using access tokens
+    from rest_framework_simplejwt.authentication import JWTAuthentication
+
+    class departmentAPI(APIView):
+        # ------------------------
+        # Authentication
+        # ------------------------
+        # Uses JWT access token to authenticate API requests
+        authentication_classes = [JWTAuthentication]
+
+        # Allows only authenticated users to access this API
+        permission_classes = [IsAuthenticated]
+
+
+        def get(self, request):
+            try:
+                alldep = Department.objects.all()
+                ser = DepartmentSerializer(alldep, many=True)
+                return Response({"department":ser.data})
+            except Exception as e:
+                return Response({"errors":str(e), "message":"Something wents Wrong!"})
+
+************************urls.py************************
+
+#---------------------- djangorestframework ----------------------(https://www.django-rest-framework.org/api-guide/authentication/)
+    # Imports DRF view to generate authentication token   
+    from rest_framework.authtoken import views
+
+    urlpatterns += [
+        # API endpoint to get token using username and password
+        path('api-token-auth/', views.obtain_auth_token)
+    ]
+
+
+#---------------------- djangorestframework-simplejwt ----------------------(https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
+    from rest_framework_simplejwt.views import (
+        TokenObtainPairView,    # Generates access and refresh JWT tokens
+        TokenRefreshView,       # Creates a new access token using refresh token
+    )
+
+    urlpatterns = [
+        ...
+        # API endpoint to login and get JWT access + refresh tokens
+        path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
+        # API endpoint to get a new access token using refresh token
+        path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+        ...
+    ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************Postman************************
+Input:
+    post - http://127.0.0.1:8000/api/token/
+    {
+        "username":"admin",
+        "password":"admin"
+    }
+Output:
+    {
+        "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2NjgyMTE1OSwiaWF0IjoxNzY2NzM0NzU5LCJqdGkiOiI1OTI2ODIzMmYyMDk0NmIyOWJlOTM0NzQzZjQ5ZWViYSIsInVzZXJfaWQiOiIxIn0.ZqwcuifWPzgU54CEbYwEzctsgIhq44y3Ew3Ptxo6cXc",
+        "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2NzM1MDU5LCJpYXQiOjE3NjY3MzQ3NTksImp0aSI6IjhjMjBhODhlMzE4MDQ5OTZiZGZmZDFhMmJhM2E3Mzg3IiwidXNlcl9pZCI6IjEifQ.VMlH-erlTLVsb7waKOYRDnqg-IlS9V1lDXYSN-PM2tU"
+    }
+
+
+check timing in- website:   https://www.jwt.io/
+refresh paste:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2NjgyMTE1OSwiaWF0IjoxNzY2NzM0NzU5LCJqdGkiOiI1OTI2ODIzMmYyMDk0NmIyOWJlOTM0NzQzZjQ5ZWViYSIsInVzZXJfaWQiOiIxIn0.ZqwcuifWPzgU54CEbYwEzctsgIhq44y3Ew3Ptxo6cXc
+access paste:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2NzM1MDU5LCJpYXQiOjE3NjY3MzQ3NTksImp0aSI6IjhjMjBhODhlMzE4MDQ5OTZiZGZmZDFhMmJhM2E3Mzg3IiwidXNlcl9pZCI6IjEifQ.VMlH-erlTLVsb7waKOYRDnqg-IlS9V1lDXYSN-PM2tU
+(it gives createtime, endedtime, userid, etc....)   

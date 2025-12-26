@@ -126,9 +126,19 @@ SIMPLE_JWT =
 
 STEP 10:- Views.py For Authentication django rest framework
 	views.py -> api secure karva mate
-	from django.http import HttpResponse
-	from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-	from rest_framework.permissions import IsAuthenticated						OR
+	from django.shortcuts import render              # Renders HTML templates with context data
+	from django.shortcuts import redirect   # Redirects user to another URL or view
+	from django.http import HttpResponse, JsonResponse  # Sends plain text or JSON HTTP responses
+	from rest_framework.response import Response     # Sends API responses in JSON format
+	from rest_framework.decorators import api_view   # Converts function-based views into DRF APIs
+	from rest_framework.views import APIView          # Base class for class-based DRF APIs
+	from rest_framework.authentication import SessionAuthentication, BasicAuthentication  
+		# Handles user authentication using sessions and basic auth
+	from rest_framework.permissions import IsAuthenticated  
+		# Allows access only to authenticated (logged-in) users
+
+
+						OR
 	from rest_framework_simplejwt.authentication import JWTAuthentication
 	from rest_framework.permissions import IsAuthenticated
 
