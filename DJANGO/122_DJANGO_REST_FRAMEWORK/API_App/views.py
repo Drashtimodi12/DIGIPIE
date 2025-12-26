@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, APIView
@@ -27,7 +27,7 @@ def add(request):
     try:
         ser = StudentSerializer(data=request.data)
         if not ser.is_valid():
-            return Response({"errors": ser.error_messages, "message":"Something went wrong..."})
+            return Response({"errors": ser.errors, "message":"Something went wrong..."})
         else:
             ser.save()
             return Response({"data":ser.data, "message":"Data inserted successfully..."})
@@ -41,7 +41,7 @@ def update(request, id):
         stu = Student.objects.get(pk=id)
         ser = StudentSerializer(stu, request.data, partial=True)
         if not ser.is_valid():
-            return Response({"errors": ser.error_messages, "message":"Something went wrong..."})
+            return Response({"errors": ser.errors, "message":"Something went wrong..."})
         else:
             ser.save()
             return Response({"data":ser.data, "message":"Data updated successfully..."})
@@ -76,7 +76,7 @@ def add_emp(request):
     try:
         ser = EmployeeSerialzer(data=request.data)
         if not ser.is_valid():
-            return Response({"errors": ser.error_messages, "message":"Something went wrong..."})
+            return Response({"errors": ser.errors, "message":"Something went wrong..."})
         else:
             ser.save()
             return Response({"data":ser.data, "message": "Data inserted successfully..."})
@@ -90,7 +90,7 @@ def update_emp(request, id):
         emp = Employee.objects.get(pk=id)
         ser = EmployeeSerialzer(emp, request.data, partial=True)
         if not ser.is_valid():
-            return Response({"errors": ser.error_messages, "message":"Something went wrong..."})
+            return Response({"errors": ser.errors, "message":"Something went wrong..."})
         else:
             ser.save()
             return Response({"data":ser.data, "message":"Data updated successfully..."})
@@ -127,7 +127,7 @@ class ProductAPI(APIView):
         try:
             ser = ProductSerializer(data=request.data)
             if not ser.is_valid():
-                return Response({"errors": ser.error_messages, "message":"Something went wrong..."})
+                return Response({"errors": ser.errors, "message":"Something went wrong..."})
             else:
                 ser.save()
                 return Response({"data": ser.data, "message":"Products add successfully..."})
@@ -144,7 +144,7 @@ class ProductAPI(APIView):
             else:
                 ser = ProductSerializer(product, request.data, partial=True)
             if not ser.is_valid():
-                return Response({"error":ser.error_messages, "message":"Something went wrong..."})
+                return Response({"error":ser.errors, "message":"Something went wrong..."})
             else:
                 ser.save()
                 return Response({"date":ser.data})
