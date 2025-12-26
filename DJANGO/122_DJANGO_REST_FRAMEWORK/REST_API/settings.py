@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'API_App',
-    'API_Library'
+    'API_Library',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +54,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'REST_API.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
 
 TEMPLATES = [
     {
